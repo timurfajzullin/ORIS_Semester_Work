@@ -1,0 +1,13 @@
+C:\Users\fajzu\OneDrive\Документы\GitHub\ORIS_Semester_Work\MyHTTPServer\MyORMLibrary\bin\Debug\net9.0\MyORMLibrary.deps.json
+C:\Users\fajzu\OneDrive\Документы\GitHub\ORIS_Semester_Work\MyHTTPServer\MyORMLibrary\bin\Debug\net9.0\MyORMLibrary.dll
+C:\Users\fajzu\OneDrive\Документы\GitHub\ORIS_Semester_Work\MyHTTPServer\MyORMLibrary\bin\Debug\net9.0\MyORMLibrary.pdb
+C:\Users\fajzu\OneDrive\Документы\GitHub\ORIS_Semester_Work\MyHTTPServer\MyORMLibrary\obj\Debug\net9.0\MyORMLibrary.csproj.AssemblyReference.cache
+C:\Users\fajzu\OneDrive\Документы\GitHub\ORIS_Semester_Work\MyHTTPServer\MyORMLibrary\obj\Debug\net9.0\MyORMLibrary.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\fajzu\OneDrive\Документы\GitHub\ORIS_Semester_Work\MyHTTPServer\MyORMLibrary\obj\Debug\net9.0\MyORMLibrary.AssemblyInfoInputs.cache
+C:\Users\fajzu\OneDrive\Документы\GitHub\ORIS_Semester_Work\MyHTTPServer\MyORMLibrary\obj\Debug\net9.0\MyORMLibrary.AssemblyInfo.cs
+C:\Users\fajzu\OneDrive\Документы\GitHub\ORIS_Semester_Work\MyHTTPServer\MyORMLibrary\obj\Debug\net9.0\MyORMLibrary.csproj.CoreCompileInputs.cache
+C:\Users\fajzu\OneDrive\Документы\GitHub\ORIS_Semester_Work\MyHTTPServer\MyORMLibrary\obj\Debug\net9.0\MyORMLibrary.sourcelink.json
+C:\Users\fajzu\OneDrive\Документы\GitHub\ORIS_Semester_Work\MyHTTPServer\MyORMLibrary\obj\Debug\net9.0\MyORMLibrary.dll
+C:\Users\fajzu\OneDrive\Документы\GitHub\ORIS_Semester_Work\MyHTTPServer\MyORMLibrary\obj\Debug\net9.0\refint\MyORMLibrary.dll
+C:\Users\fajzu\OneDrive\Документы\GitHub\ORIS_Semester_Work\MyHTTPServer\MyORMLibrary\obj\Debug\net9.0\MyORMLibrary.pdb
+C:\Users\fajzu\OneDrive\Документы\GitHub\ORIS_Semester_Work\MyHTTPServer\MyORMLibrary\obj\Debug\net9.0\ref\MyORMLibrary.dll
