@@ -2705,7 +2705,10 @@
       <None Update="public\assets\main.58306ad7.css">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </None>
-      <None Update="public\assets\login.css">
+      <None Update="public\assets\image\avatar.png">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="Templates\Pages\MoviePage\MoviePage.html">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </None>
     </ItemGroup>
@@ -2713,6 +2716,7 @@
     <ItemGroup>
       <ProjectReference Include="..\HttpServerLibrary\HttpServerLibrary.csproj" />
       <ProjectReference Include="..\MyORMLibrary\MyORMLibrary.csproj" />
+      <ProjectReference Include="..\TemplateEngine\TemplateEngine.csproj" />
     </ItemGroup>
 
     <ItemGroup>
@@ -2721,6 +2725,7 @@
 
     <ItemGroup>
       <Folder Include="public\" />
+      <Folder Include="Templates\Pages\MoviePage\" />
     </ItemGroup>
 
 </Project>

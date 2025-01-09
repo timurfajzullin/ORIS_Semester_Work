@@ -75,5 +75,12 @@ C:\Users\fajzu\OneDrive\Документы\GitHub\ORIS_Semester_Work\MyHTTPServe
 C:\Users\fajzu\OneDrive\Документы\GitHub\ORIS_Semester_Work\MyHTTPServer\MyHTTPServer\obj\Debug\net9.0\MyHTTPServer.pdb
 C:\Users\fajzu\OneDrive\Документы\GitHub\ORIS_Semester_Work\MyHTTPServer\MyHTTPServer\obj\Debug\net9.0\MyHTTPServer.genruntimeconfig.cache
 C:\Users\fajzu\OneDrive\Документы\GitHub\ORIS_Semester_Work\MyHTTPServer\MyHTTPServer\obj\Debug\net9.0\ref\MyHTTPServer.dll
-C:\Users\fajzu\OneDrive\Документы\GitHub\ORIS_Semester_Work\MyHTTPServer\MyHTTPServer\bin\Debug\net9.0\public\assets\login.css
 C:\Users\fajzu\OneDrive\Документы\GitHub\ORIS_Semester_Work\MyHTTPServer\MyHTTPServer\bin\Debug\net9.0\public\assets\main.58306ad7.css
+C:\Users\fajzu\OneDrive\Документы\GitHub\ORIS_Semester_Work\MyHTTPServer\MyHTTPServer\bin\Debug\net9.0\public\assets\image\avatar.png
+C:\Users\fajzu\OneDrive\Документы\GitHub\ORIS_Semester_Work\MyHTTPServer\MyHTTPServer\bin\Debug\net9.0\TemplateEngine.dll
+C:\Users\fajzu\OneDrive\Документы\GitHub\ORIS_Semester_Work\MyHTTPServer\MyHTTPServer\bin\Debug\net9.0\TemplateEngine.pdb
+C:\Users\fajzu\OneDrive\Документы\GitHub\ORIS_Semester_Work\MyHTTPServer\MyHTTPServer\bin\Debug\net9.0\ORMContext.cs
+C:\Users\fajzu\OneDrive\Документы\GitHub\ORIS_Semester_Work\MyHTTPServer\MyHTTPServer\bin\Debug\net9.0\TestORMContext.cs
+C:\Users\fajzu\OneDrive\Документы\GitHub\ORIS_Semester_Work\MyHTTPServer\MyHTTPServer\bin\Debug\net9.0\CustomTemplator.cs
+C:\Users\fajzu\OneDrive\Документы\GitHub\ORIS_Semester_Work\MyHTTPServer\MyHTTPServer\bin\Debug\net9.0\ICustomTemplator.cs
+C:\Users\fajzu\OneDrive\Документы\GitHub\ORIS_Semester_Work\MyHTTPServer\MyHTTPServer\bin\Debug\net9.0\Templates\Pages\MoviePage\MoviePage.html

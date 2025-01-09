@@ -1,17 +1,17 @@
 ﻿using System.Data;
+using System.Data.Common;
+using System.Data.SqlClient;
 using System.Linq.Expressions;
 using System.Reflection;
-using Microsoft.Data.SqlClient;
 
-
-public class ORMContext
+namespace MyORMLibrary;
+public class ORMContext<T> where T : class, new()
 {
-    private readonly string _connectionString;
-    private readonly string tableName = "users";
+    private readonly IDbConnection _dbconnection;
 
-    public ORMContext(string connectionString)
+    public ORMContext(IDbConnection dbconnection)
     {
-        _connectionString = connectionString;
+        _dbconnection = dbconnection;
     }
 
     public T Create<T>(T entity, string tableName) where T : class
@@ -21,87 +21,30 @@ public class ORMContext
         throw new NotImplementedException();
     }
 
-    public IEnumerable<T> ReadById<T>(int id) where T : class, new()
+    public T ReadById(int id)
     {
-        var result = new List<T>();
-        using (SqlConnection connection = new SqlConnection(_connectionString))
+        using (var connection = _dbconnection)
         {
             connection.Open();
+            string tableName = typeof(T).Name;
             string queryRequest = $"SELECT * FROM {tableName} WHERE id = @id";
-            SqlCommand command = new SqlCommand(queryRequest, connection);
-            command.Parameters.AddWithValue("@id", id);
 
-            using (SqlDataReader reader = command.ExecuteReader())
+            using (var command = connection.CreateCommand())
             {
-                while (reader.Read())
+                command.CommandText = queryRequest;
+
+                var parametr = command.CreateParameter();
+                parametr.ParameterName = "@id";
+                parametr.Value = id;
+                command.Parameters.Add(parametr);
+
+
+                using (var reader = command.ExecuteReader())
                 {
-                    result.Add(Map<T>(reader));
-                }
-            }
-        }
-
-        return result;
-    }
-
-    public IEnumerable<T> ReadByAll<T>() where T : class, new()
-    {
-        var result = new List<T>();
-        using (SqlConnection connection = new SqlConnection(_connectionString))
-        {
-            connection.Open();
-            string queryRequest = $"SELECT * FROM {tableName}";
-            SqlCommand command = new SqlCommand(queryRequest, connection);
-            //command.Parameters.AddWithValue("@id");
-
-            using (SqlDataReader reader = command.ExecuteReader())
-            {
-                while (reader.Read())
-                {
-                    result.Add(Map<T>(reader));
-                }
-            }
-        }
-
-        return result;
-    }
-
-    public IEnumerable<T> ReadByName<T>(string Name) where T : class, new()
-    {
-        var result = new List<T>();
-
-        using (SqlConnection connection = new SqlConnection(_connectionString))
-        {
-            connection.Open();
-            string queryRequest = $"SELECT * FROM {tableName} WHERE name = @Name ";
-            SqlCommand command = new SqlCommand(queryRequest, connection);
-            command.Parameters.AddWithValue("@name", Name);
-
-            using (SqlDataReader reader = command.ExecuteReader())
-            {
-                if (reader.Read())
-                {
-                    result.Add(Map<T>(reader));
-                }
-            }
-        }
-
-        return result;
-    }
-
-    public T ReadByEmail<T>(string email) where T : class, new()
-    {
-        using (SqlConnection connection = new SqlConnection(_connectionString))
-        {
-            connection.Open();
-            string queryRequest = $"SELECT * FROM {tableName} WHERE email = @email ";
-            SqlCommand command = new SqlCommand(queryRequest, connection);
-            command.Parameters.AddWithValue("@email", email);
-
-            using (SqlDataReader reader = command.ExecuteReader())
-            {
-                if (reader.Read())
-                {
-                    return Map<T>(reader);
+                    if (reader.Read())
+                    {
+                        return Map(reader);
+                    }
                 }
             }
         }
@@ -109,75 +52,288 @@ public class ORMContext
         return null;
     }
 
-
-    public void Update<T>(int id, T entity, string tableName)
+    private T Map(IDataReader reader)
     {
-        using (SqlConnection connection = new SqlConnection(_connectionString))
+        var entity = new T();
+        var properties = typeof(T).GetProperties();
+
+        foreach(var property in properties)
         {
-            connection.Open();
-            string sql = $"UPDATE {tableName} SET Column1 = data WHERE Id = @id";
-            SqlCommand command = new SqlCommand(sql, connection);
-            command.Parameters.AddWithValue("@id", id);
-            command.Parameters.AddWithValue("@value1", "значение");
-
-            command.ExecuteNonQuery();
-        }
-    }
-
-    public void Delete(int id, string tableName)
-    {
-        using (SqlConnection connection = new SqlConnection(_connectionString))
-        {
-            connection.Open();
-            string sql = $"DELETE FROM {tableName} WHERE Id = @id";
-            SqlCommand command = new SqlCommand(sql, connection);
-            command.Parameters.AddWithValue("@id", id);
-
-            command.ExecuteNonQuery();
-            Console.WriteLine("Deleted successfully");
-        }
-    }
-
-    public T FirstOrDefault<T>(Expression<Func<T, bool>> predicate) where T : class, new()
-    {
-        var query = BuildQuery(predicate);
-
-        using (var connection = new SqlConnection(_connectionString))
-        {
-            connection.Open();
-
-            using (var command = new SqlCommand(query.Item1, connection))
+            if (!reader.IsDBNull(reader.GetOrdinal(property.Name))) 
             {
-                foreach (var parameter in query.Item2)
-                {
-                    command.Parameters.AddWithValue(parameter.Key, parameter.Value);
-                }
+                property.SetValue(entity, reader[property.Name]);
+            }
+        }
+        return entity;
+    }
+
+
+    public T CheckUserByData(string email)
+    {
+        var tableName = typeof(T).Name;
+        using (var connection = _dbconnection)
+        {
+            connection.Open();
+            string queryRequest = $"SELECT * FROM {tableName} WHERE email = @email ";
+            using (var command = connection.CreateCommand())
+            {
+                command.CommandText = queryRequest;
+                var parametr = command.CreateParameter();
+                parametr.ParameterName= "@email";
+                parametr.Value = email;
 
                 using (var reader = command.ExecuteReader())
                 {
                     if (reader.Read())
                     {
-                        return Map<T>(reader);
+                        return Map(reader);
+                    }
+                }
+            }
+        }
+        return null;
+    }
+
+
+    public T ReadByAll<T>() where T : class, new()
+    {
+        var tableName = typeof(T).Name;
+        using (var connection = _dbconnection)
+        {
+            connection.Open();
+            string queryRequest = $"SELECT * FROM {tableName}";
+            using (var command = connection.CreateCommand())
+            {
+                using (var reader = command.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        return MapToEntity<T>(reader);
                     }
                 }
             }
         }
 
-        return default(T);
+        return null;
+    }
+
+    public T ReadByName<T>(string Name) where T : class, new()
+    {
+        var tableName = typeof(T).Name;
+        using (var connection = _dbconnection)
+        {
+            connection.Open();
+            string queryRequest = $"SELECT * FROM {tableName} WHERE name = @Name ";
+            using (var command = connection.CreateCommand())
+            {
+                command.CommandText = queryRequest;
+                var parameter = command.CreateParameter();
+                parameter.ParameterName = "@name";
+                parameter.Value = Name;
+
+                using (var reader = command.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        return MapToEntity<T>(reader);
+                    }
+                }
+            }
+        }
+
+        return null;
+    }
+
+    public string TakeFieldByData(string query)
+    {
+        var result = "";
+        using (var command = _dbconnection.CreateCommand())
+        {
+            command.CommandText = query;
+            _dbconnection.Open();
+
+            using (var reader = command.ExecuteReader())
+            {
+                while (reader.Read())
+                {
+                    result = reader[0].ToString();
+                }
+            }
+        }
+        
+        _dbconnection.Close();
+        return result;
+    }
+    
+    
+    public List<string> TakeURLByData(string query)
+    {
+        var results = new List<string>(); // Изменяем тип списка на string
+        using (var command = _dbconnection.CreateCommand())
+        {
+            command.CommandText = query;
+            _dbconnection.Open();
+        
+            using (var reader = command.ExecuteReader())
+            {
+                while (reader.Read())
+                {
+                    results.Add(reader[0].ToString()); // Считываем первое значение из строки и добавляем в список
+                }
+            }
+
+            _dbconnection.Close();
+        }
+        return results; // Возвращаем список строк
+    }
+
+
+    public void Update(int id, T entity)
+    {
+        var properties = typeof(T).GetProperties()
+            .Where(p => p.Name != "Id")
+            .ToList();
+
+        var setClause = string.Join(", ", properties.Select(p => $"{p.Name} = @{p.Name}"));
+        var query = $"UPDATE {typeof(T).Name}s SET {setClause} WHERE Id = @id";
+
+        using (var command = _dbconnection.CreateCommand())
+        {
+            command.CommandText = query;
+
+            foreach (var property in properties)
+            {
+                var parameter = command.CreateParameter();
+                parameter.ParameterName = "@" + property.Name;
+                parameter.Value = property.GetValue(entity) ?? DBNull.Value;
+                command.Parameters.Add(parameter);
+            }
+
+            var idParameter = command.CreateParameter();
+            idParameter.ParameterName = "@id";
+            idParameter.Value = id;
+            command.Parameters.Add(idParameter);
+
+            _dbconnection.Open();
+            command.ExecuteNonQuery();
+            _dbconnection.Close();
+        }
+    }
+
+
+    public void Delete(int id)
+    {
+        var query = $"DELETE FROM {typeof(T).Name}s WHERE Id = @id";
+        using (var command = _dbconnection.CreateCommand())
+        {
+            command.CommandText = query;
+            var parametr = command.CreateParameter();
+            parametr.ParameterName = "@id";
+            parametr.Value = id;
+            command.Parameters.Add(parametr);
+
+            _dbconnection.Open();
+            command.ExecuteNonQuery();
+            _dbconnection.Close();
+        }
+    }
+
+    private T MapToEntity<T>(IDataReader reader) where T : class, new()
+    {
+        T entity = new T();
+        Type entityType = typeof(T);
+        PropertyInfo[] properties = entityType.GetProperties();
+
+        //Получаем схему таблицы для проверки существования столбцов
+        DataTable schemaTable = reader.GetSchemaTable();
+
+        foreach (PropertyInfo property in properties)
+        {
+            string columnName = property.Name;
+            //Проверяем наличие столбца в схеме
+            DataRow[] rows = schemaTable.Select($"ColumnName = '" + columnName + "'");
+            if (rows.Length > 0)
+            {
+                try
+                {
+                    int ordinal = reader.GetOrdinal(columnName);
+                    object value = reader.GetValue(ordinal);
+                    if (value != DBNull.Value)
+                    {
+                        property.SetValue(entity, Convert.ChangeType(value, property.PropertyType));
+                    }
+                }
+                catch (IndexOutOfRangeException)
+                {
+                    //Обработка ситуации, когда столбец неожиданно пропал
+                    Console.WriteLine($"Column '{columnName}' not found in result set.");
+                }
+            }
+        }
+        return entity;
+    }
+
+    public T FirstOrDefault(Expression<Func<T, bool>> predicate)
+    {
+        var sqlQuery = BuildSqlQuery(predicate, singleResult: true);
+        return ExecuteQuerySingle(sqlQuery);
+    }
+
+    public IEnumerable<T> Where(Expression<Func<T, bool>> predicate)
+    {
+        var sqlQuery = BuildSqlQuery(predicate, singleResult: false);
+        return ExecuteQueryMultiple(sqlQuery);
+    }
+
+    private T ExecuteQuerySingle(string query)
+    {
+        using (var command = _dbconnection.CreateCommand())
+        {
+            command.CommandText = query;
+            _dbconnection.Open();
+            using (var reader = command.ExecuteReader())
+            {
+                if (reader.Read())
+                {
+                    return Map(reader);
+                }
+            }
+            _dbconnection.Close();
+        }
+        return null;
+    }
+
+    private IEnumerable<T> ExecuteQueryMultiple(string query)
+    {
+        var results = new List<T>();
+        using (var command = _dbconnection.CreateCommand())
+        {
+            command.CommandText = query;
+            _dbconnection.Open();
+            using (var reader = command.ExecuteReader())
+            {
+                while (reader.Read())
+                {
+                    results.Add(Map(reader));
+                }
+            }
+            _dbconnection.Close();
+        }
+        return results;
     }
 
     private Tuple<string, Dictionary<string, object>> BuildQuery<T>(Expression<Func<T, bool>> predicate)
-    {
+   {
         var tableName = typeof(T).Name + "s";
         var parameters = new Dictionary<string, object>();
         var whereClause = BuildWhereClause(predicate.Body, parameters);
 
         var query = $"SELECT TOP 1 * FROM {tableName} {whereClause}";
         return new Tuple<string, Dictionary<string, object>>(query, parameters);
-    }
+   }
 
-    private string BuildWhereClause(Expression expression, Dictionary<string, object> parameters)
-    {
+   private string BuildWhereClause(Expression expression, Dictionary<string, object> parameters)
+   {
         if (expression is BinaryExpression binaryExpression)
         {
             var left = BuildWhereClause(binaryExpression.Left, parameters);
@@ -210,21 +366,55 @@ public class ORMContext
         {
             throw new NotSupportedException($"Expression type {expression.GetType().Name} is not supported");
         }
+   }
+
+    private string ParseExpression(Expression expression)
+    {
+        if (expression is BinaryExpression binary)
+        {
+            // разбираем выражение на составляющие
+            var left = ParseExpression(binary.Left);  // Левая часть выражения
+            var right = ParseExpression(binary.Right); // Правая часть выражения
+            var op = GetSqlOperator(binary.NodeType);  // Оператор (например, > или =)
+            return $"({left} {op} {right})";
+        }
+        else if (expression is MemberExpression member)
+        {
+            return member.Member.Name; // Название свойства
+        }
+        else if (expression is ConstantExpression constant)
+        {
+            return FormatConstant(constant.Value); // Значение константы
+        }
+        throw new NotSupportedException($"Unsupported expression type: {expression.GetType().Name}");
     }
 
-    private T Map<T>(SqlDataReader reader) where T : class, new()
+    private string GetSqlOperator(ExpressionType nodeType)
     {
-        var entity = new T();
-        for (var i = 0; i < reader.FieldCount; i++)
+        return nodeType switch
         {
-            string columnName = reader.GetName(i);
-            var property = typeof(T).GetProperty(columnName);
-            if (property != null && !reader.IsDBNull(i))
-            {
-                property.SetValue(entity, reader.GetValue(i));
-            }
-        }
+            ExpressionType.Equal => "=",
+            ExpressionType.AndAlso => "AND",
+            ExpressionType.NotEqual => "<>",
+            ExpressionType.GreaterThan => ">",
+            ExpressionType.LessThan => "<",
+            ExpressionType.GreaterThanOrEqual => ">=",
+            ExpressionType.LessThanOrEqual => "<=",
+            _ => throw new NotSupportedException($"Unsupported node type: {nodeType}")
+        };
+    }
 
-        return entity;
+    private string FormatConstant(object value)
+    {
+        return value is string ? $"'{value}'" : value.ToString();
+    }
+
+    private string BuildSqlQuery(Expression<Func<T, bool>> predicate, bool singleResult)
+    {
+        var tableName = typeof(T).Name + "s"; // Имя таблицы, основанное на имени класса
+        var whereClause = ParseExpression(predicate.Body);
+        var limitClause = singleResult ? "LIMIT 1" : string.Empty;
+
+        return $"SELECT * FROM {tableName} WHERE {whereClause}".Trim();
     }
 }

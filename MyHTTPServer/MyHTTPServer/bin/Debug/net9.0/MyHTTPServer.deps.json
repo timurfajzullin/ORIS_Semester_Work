@@ -10,7 +10,8 @@
         "dependencies": {
           "HttpServerLibrary": "1.0.0",
           "Microsoft.Data.SqlClient": "6.0.0-preview3.24332.3",
-          "MyORMLibrary": "1.0.0"
+          "MyORMLibrary": "1.0.0",
+          "TemplateEngine": "1.0.0"
         },
         "runtime": {
           "MyHTTPServer.dll": {}
@@ -449,6 +450,14 @@
             "fileVersion": "1.0.0.0"
           }
         }
+      },
+      "TemplateEngine/1.0.0": {
+        "runtime": {
+          "TemplateEngine.dll": {
+            "assemblyVersion": "1.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
       }
     }
   },
@@ -709,6 +718,11 @@
       "sha512": ""
     },
     "MyORMLibrary/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "TemplateEngine/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

@@ -131,16 +131,17 @@ internal class EndPointsHandler : Handler
         _routes[route].Add((method, handler, endpointType));
     }
 
-    private object[] GetParams(HttpRequestContext context, MethodInfo handler)
+    private object?[] GetParams(HttpRequestContext context, MethodInfo handler)
     {
         var parameters = handler.GetParameters();
-        var result = new List<object>();
+        var result = new List<object?>();
 
         if (context.Request.HttpMethod == "GET" || context.Request.HttpMethod == "POST")
         {
             using var reader = new StreamReader(context.Request.InputStream);
             string body = reader.ReadToEnd();
             var data = HttpUtility.ParseQueryString(body);
+
             foreach (var parameter in parameters)
             {
                 if (context.Request.HttpMethod == "GET")
@@ -150,9 +151,9 @@ internal class EndPointsHandler : Handler
                 }
                 else if (context.Request.HttpMethod == "POST")
                 {
-                    // using var reader = new StreamReader(context.Request.InputStream);
-                    // string body = reader.ReadToEnd();
-                    // var data = HttpUtility.ParseQueryString(body);
+                    // Вывод в консоль при получении POST-запроса
+                    Console.WriteLine($"Получен POST-запрос. Данные: {body}");
+
                     result.Add(Convert.ChangeType(data[parameter.Name], parameter.ParameterType));
                 }
             }

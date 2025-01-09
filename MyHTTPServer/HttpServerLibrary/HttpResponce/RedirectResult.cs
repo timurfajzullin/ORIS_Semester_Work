@@ -1,19 +1,21 @@
 ﻿using System.Net;
-using HttpServerLibrary;
 using HttpServerLibrary.HttpResponce;
 
-public class RedirectResult //: IHttpResponceResult
+namespace HttpServerLibrary.HttpResponse;
+
+public class RedirectResponse: IHttpResponceResult
 {
-    private readonly string _location;
-    public RedirectResult(string location)
+    private readonly string _redirectUrl;
+
+    public RedirectResponse(string redirectUrl)
     {
-        _location = location;
+        _redirectUrl = redirectUrl;
     }
- 
-    public void Execute(HttpListenerResponse context)
+
+    public void Execute(HttpListenerResponse response)
     {
-        //var response = context.Response;
-        context.StatusCode = 302;
-        context.Headers.Add("Location", _location); // Заголовок для указания пути
+        response.Redirect(_redirectUrl);
+        response.StatusCode = (int)HttpStatusCode.Redirect;
+        response.OutputStream.Close();
     }
 }

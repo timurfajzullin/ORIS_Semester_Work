@@ -1,5 +1,4 @@
 ﻿using MyHTTPServer.Temlator;
-using MyHTTPServer.models;
 using TemplateEngineUnitTests.Models;
 
 namespace MyHttpServer.unitTest.Core.Templator;

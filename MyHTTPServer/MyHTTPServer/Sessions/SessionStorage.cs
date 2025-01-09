@@ -1,24 +1,25 @@
-﻿namespace MyHTTPServer.Sessions;
-
-public static class SessionStorage
+﻿namespace MyHTTPServer.Sessions
 {
-    private static readonly Dictionary<string, string> Sessions = new Dictionary<string, string>();
- 
-    // Сохранение токена и его соответствующего ID пользователя
-    public static void SaveSession(string token, string userId)
+    public static class SessionStorage
     {
-        Sessions[token] = userId;
-    }
- 
-    // Проверка токена
-    public static bool ValidateToken(string token)
-    {
-        return Sessions.ContainsKey(token);
-    }
- 
-    // Получение ID пользователя по токену
-    public static string GetUserId(string token)
-    {
-        return Sessions.TryGetValue(token, out var userId) ? userId : null;
+        private static readonly Dictionary<string, int> _sessions = new Dictionary<string, int>();
+
+        // Сохранение токена и его соответствующего ID пользователя
+        public static void SaveSession(string token, int userId)
+        {
+            _sessions[token] = userId;
+        }
+
+        // Проверка токена
+        public static bool ValidateToken(string token)
+        {
+            return _sessions.ContainsKey(token);
+        }
+
+        // Получение ID пользователя по токену
+        public static int? GetUserId(string token)
+        {
+            return _sessions.TryGetValue(token, out var userId) ? userId : null;
+        }
     }
 }

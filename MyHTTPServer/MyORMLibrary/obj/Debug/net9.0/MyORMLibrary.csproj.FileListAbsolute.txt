@@ -11,3 +11,5 @@ C:\Users\fajzu\OneDrive\Документы\GitHub\ORIS_Semester_Work\MyHTTPServe
 C:\Users\fajzu\OneDrive\Документы\GitHub\ORIS_Semester_Work\MyHTTPServer\MyORMLibrary\obj\Debug\net9.0\refint\MyORMLibrary.dll
 C:\Users\fajzu\OneDrive\Документы\GitHub\ORIS_Semester_Work\MyHTTPServer\MyORMLibrary\obj\Debug\net9.0\MyORMLibrary.pdb
 C:\Users\fajzu\OneDrive\Документы\GitHub\ORIS_Semester_Work\MyHTTPServer\MyORMLibrary\obj\Debug\net9.0\ref\MyORMLibrary.dll
+C:\Users\fajzu\OneDrive\Документы\GitHub\ORIS_Semester_Work\MyHTTPServer\MyORMLibrary\bin\Debug\net9.0\ORMContext.cs
+C:\Users\fajzu\OneDrive\Документы\GitHub\ORIS_Semester_Work\MyHTTPServer\MyORMLibrary\bin\Debug\net9.0\TestORMContext.cs

@@ -1,43 +1,45 @@
 ﻿using HttpServerLibrary;
+using MyHttttpServer.Models;
+using System.Data.SqlClient;
 using HttpServerLibrary.Attributes;
 using HttpServerLibrary.HttpResponce;
 using Microsoft.Data.SqlClient;
-using MyHTTPServer.models;
 
-namespace MyHTTPServer.EndPoints;
-
-internal class UserEndpoint : BaseEndPoint
+namespace MyHtttpServer.Endponts
 {
-    [Get("users")]
-    public IHttpResponceResult GetUser()
+    internal class UserEndpoints : BaseEndPoint
     {
-        string connectionString =
-            @"Server=localhost; Database=myDB; User Id=sa; Password=P@ssw0rd;TrustServerCertificate=true;";
+        [Get("user")]
+        public IHttpResponceResult GetUser() 
+        {
+            string connectionString = @"Data Source=localhost;Initial Catalog=test;User ID=sa;Password=P@ssw0rd; TrustServerCertificate=true;";
+            var users = new List<User>();
+            string sqlExpression = "SELECT * FROM Users";
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+                SqlCommand command = new SqlCommand(sqlExpression, connection);
+                SqlDataReader reader = command.ExecuteReader();
 
-        var dBcontext = new ORMContext(connectionString);
-        var users = dBcontext.ReadById<User>(10);
-        return Json(users);
-    }
+                if (reader.HasRows) // если есть данные
+                { 
+
+                    while (reader.Read()) // построчно считываем данные
+                    {
+                        var user = new User()
+                        {
+                            Id = reader.GetInt32(0),
+                            Email = reader.GetString(1),
+                            Password = reader.GetString(2),
+                        };
+                        users.Add(new User());
+
+                    }
+                }
+                reader.Close();
+            }
+            return (IHttpResponceResult)Json(users);
+        }
     
-    [Get("usersall")]
-    public IHttpResponceResult GetUserAll()
-    {
-        string connectionString =
-            @"Server=localhost; Database=myDB; User Id=sa; Password=P@ssw0rd;TrustServerCertificate=true;";
-
-        var dBcontext = new ORMContext(connectionString);
-        var users = dBcontext.ReadByAll<User>();
-        return Json(users);
-    }
-    
-    [Get("usersbyname")]
-    public IHttpResponceResult GetUserByName()
-    {
-        string connectionString =
-            @"Server=localhost; Database=myDB; User Id=sa; Password=P@ssw0rd;TrustServerCertificate=true;";
-
-        var dBcontext = new ORMContext(connectionString);
-        var users = dBcontext.ReadByName<User>("Ilham");
-        return Json(users);
     }
 }

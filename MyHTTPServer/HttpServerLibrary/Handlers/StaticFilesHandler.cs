@@ -39,7 +39,6 @@ public class StaticFilesHandler : Handler
                     string.IsNullOrEmpty(relativePath)
                         ? "index.html"
                         : relativePath); // Если нет обращения к конкретному файлу, обращаться к index.html
-                Console.WriteLine($"file path: {filePath}");
                 // TODO try catch 
                 // Если файла не существует вернуть 404
                 // if (!File.Exists(filePath))

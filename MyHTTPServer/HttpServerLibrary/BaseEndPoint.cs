@@ -1,6 +1,7 @@
 ﻿using System.Net;
 using System.Text;
 using HttpServerLibrary.HttpResponce;
+using HttpServerLibrary.HttpResponse;
 
 
 namespace HttpServerLibrary;
@@ -14,10 +15,8 @@ public class BaseEndPoint
         Context = context;
     }
 
-    public IHttpResponceResult Html(string responceText) => new HTMLResult(responceText);
+    public static IHttpResponceResult Html(string responceText) => new HTMLResult(responceText);
     public IHttpResponceResult Json(object data) => new JsonResult(data);
     
-    public RedirectResult Redirect(string route) => new RedirectResult(route);
-    
-    // TODO redirect method
+    public RedirectResponse Redirect(string route) => new RedirectResponse(route);
 }
