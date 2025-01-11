@@ -442,7 +442,8 @@
       },
       "MyORMLibrary/1.0.0": {
         "dependencies": {
-          "Microsoft.Data.SqlClient": "6.0.0-preview3.24332.3"
+          "Microsoft.Data.SqlClient": "6.0.0-preview3.24332.3",
+          "TemplateEngine": "1.0.0"
         },
         "runtime": {
           "MyORMLibrary.dll": {

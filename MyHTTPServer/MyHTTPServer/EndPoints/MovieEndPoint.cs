@@ -17,12 +17,17 @@ public class MovieEndPoint : BaseEndPoint
         
         var templator = new CustomTemplator();
         var moviePage = File.ReadAllText(@"Templates/Pages/MoviePage/MoviePage.html");
+        string connectionString = @"Data Source=localhost; User ID=sa;Password=P@ssw0rd; TrustServerCertificate=true;";
+        var connection = new SqlConnection(connectionString);
+        var dBcontext = new ORMContext<Movie>(connection);
+        var result = dBcontext.ReadByAll<Movie>();
+        
         
         if (IsAuthorized(Context))
         {
-            return Html(templator.GetMovieHtml(moviePage));
+            return Html(templator.GetMovieHtml(templator.GetHtmlByTemplateFilmPageData(result, moviePage)));
         }
-        return Html(moviePage);
+        return Html(templator.GetHtmlByTemplateFilmPageData(result, moviePage));
     }
     
     public bool IsAuthorized(HttpRequestContext context)
@@ -48,7 +53,7 @@ public class MovieEndPoint : BaseEndPoint
         string connectionString = @"Data Source=localhost; User ID=sa;Password=P@ssw0rd; TrustServerCertificate=true;";
         var connection = new SqlConnection(connectionString);
         var dBcontext = new ORMContext<Movie>(connection);
-        var query = "SELECT email FROM users";
+        var query = "SELECT name FROM users";
         var result = dBcontext.TakeFieldByData(query);
         return Json(result);
     }

@@ -601,6 +601,16 @@
         "runtime": {
           "lib/netcoreapp2.1/_._": {}
         }
+      },
+      "TemplateEngine/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v9.0",
+        "compile": {
+          "bin/placeholder/TemplateEngine.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/TemplateEngine.dll": {}
+        }
       }
     }
   },
@@ -1597,11 +1607,17 @@
         "useSharedDesignerContext.txt",
         "version.txt"
       ]
+    },
+    "TemplateEngine/1.0.0": {
+      "type": "project",
+      "path": "../TemplateEngine/TemplateEngine.csproj",
+      "msbuildProject": "../TemplateEngine/TemplateEngine.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net9.0": [
-      "Microsoft.Data.SqlClient >= 6.0.0-preview2.24304.8"
+      "Microsoft.Data.SqlClient >= 6.0.0-preview2.24304.8",
+      "TemplateEngine >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -1628,7 +1644,11 @@
       "frameworks": {
         "net9.0": {
           "targetAlias": "net9.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\Users\\fajzu\\OneDrive\\Документы\\GitHub\\ORIS_Semester_Work\\MyHTTPServer\\TemplateEngine\\TemplateEngine.csproj": {
+              "projectPath": "C:\\Users\\fajzu\\OneDrive\\Документы\\GitHub\\ORIS_Semester_Work\\MyHTTPServer\\TemplateEngine\\TemplateEngine.csproj"
+            }
+          }
         }
       },
       "warningProperties": {

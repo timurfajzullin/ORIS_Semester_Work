@@ -1,0 +1,77 @@
+﻿body {
+    display: flex;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: black;
+}
+.container {
+    text-align: center;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+.input-group {
+    margin-bottom: 15px;
+}
+input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+.button-group {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #ffc107;
+    color: #fff;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+button:hover {
+    background-color: #e0a800;
+}
+
+.qwe{
+    display: flex;
+    flex-direction: row;
+}
+
+#catalog {
+    display: flex;             /* Используем Flexbox для выравнивания карточек */
+    flex-wrap: wrap;           /* При недостатке места карточки будут смещаться на следующую строку */
+    gap: 10px;                 /* Добавляем промежуток между карточками */
+    justify-content: start;    /* Выравнивание карточек по левому краю */
+    max-height: calc(100vh - 80px);  /* Ограничиваем высоту каталога, чтобы карточки не выходили за верхнюю границу экрана */
+    overflow-y: auto;          /* Добавляем вертикальную прокрутку, если карточек слишком много */
+    padding-top: 20px;         /* Добавляем небольшой отступ сверху */
+    color: #000000;
+}
+
+.movie-card {
+    display: flex;
+    flex-direction: column;    /* Карточки могут содержать текст снизу */
+    align-items: center;       /* Центрируем текст в карточке */
+    justify-content: flex-end; /* Позиционирование контента внутри карточки */
+    width: 200px;              /* Ширина карточки */
+    height: 300px;             /* Высота карточки */
+    background-size: 200px 300px; /* Размер изображения */
+    background-position: center; /* Центрируем изображение */
+    background-repeat: no-repeat; /* Запрещаем повтор изображения */
+    background-color: #f0f0f0; /* Фоновый цвет, если изображение не загружено */
+}
+
+.movie-card p {
+    background-color: #4040f3;
+}
+

@@ -13,3 +13,8 @@ C:\Users\fajzu\OneDrive\Документы\GitHub\ORIS_Semester_Work\MyHTTPServe
 C:\Users\fajzu\OneDrive\Документы\GitHub\ORIS_Semester_Work\MyHTTPServer\MyORMLibrary\obj\Debug\net9.0\ref\MyORMLibrary.dll
 C:\Users\fajzu\OneDrive\Документы\GitHub\ORIS_Semester_Work\MyHTTPServer\MyORMLibrary\bin\Debug\net9.0\ORMContext.cs
 C:\Users\fajzu\OneDrive\Документы\GitHub\ORIS_Semester_Work\MyHTTPServer\MyORMLibrary\bin\Debug\net9.0\TestORMContext.cs
+C:\Users\fajzu\OneDrive\Документы\GitHub\ORIS_Semester_Work\MyHTTPServer\MyORMLibrary\bin\Debug\net9.0\CustomTemplator.cs
+C:\Users\fajzu\OneDrive\Документы\GitHub\ORIS_Semester_Work\MyHTTPServer\MyORMLibrary\bin\Debug\net9.0\ICustomTemplator.cs
+C:\Users\fajzu\OneDrive\Документы\GitHub\ORIS_Semester_Work\MyHTTPServer\MyORMLibrary\bin\Debug\net9.0\TemplateEngine.dll
+C:\Users\fajzu\OneDrive\Документы\GitHub\ORIS_Semester_Work\MyHTTPServer\MyORMLibrary\bin\Debug\net9.0\TemplateEngine.pdb
+C:\Users\fajzu\OneDrive\Документы\GitHub\ORIS_Semester_Work\MyHTTPServer\MyORMLibrary\obj\Debug\net9.0\MyORMLib.FCB61E28.Up2Date

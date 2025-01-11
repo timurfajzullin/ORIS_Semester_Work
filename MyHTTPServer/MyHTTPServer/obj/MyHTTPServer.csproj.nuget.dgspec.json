@@ -159,7 +159,11 @@
         "frameworks": {
           "net9.0": {
             "targetAlias": "net9.0",
-            "projectReferences": {}
+            "projectReferences": {
+              "C:\\Users\\fajzu\\OneDrive\\Документы\\GitHub\\ORIS_Semester_Work\\MyHTTPServer\\TemplateEngine\\TemplateEngine.csproj": {
+                "projectPath": "C:\\Users\\fajzu\\OneDrive\\Документы\\GitHub\\ORIS_Semester_Work\\MyHTTPServer\\TemplateEngine\\TemplateEngine.csproj"
+              }
+            }
           }
         },
         "warningProperties": {

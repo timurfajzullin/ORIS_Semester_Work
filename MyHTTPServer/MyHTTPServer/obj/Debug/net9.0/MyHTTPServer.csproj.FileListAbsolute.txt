@@ -84,3 +84,7 @@ C:\Users\fajzu\OneDrive\Документы\GitHub\ORIS_Semester_Work\MyHTTPServe
 C:\Users\fajzu\OneDrive\Документы\GitHub\ORIS_Semester_Work\MyHTTPServer\MyHTTPServer\bin\Debug\net9.0\CustomTemplator.cs
 C:\Users\fajzu\OneDrive\Документы\GitHub\ORIS_Semester_Work\MyHTTPServer\MyHTTPServer\bin\Debug\net9.0\ICustomTemplator.cs
 C:\Users\fajzu\OneDrive\Документы\GitHub\ORIS_Semester_Work\MyHTTPServer\MyHTTPServer\bin\Debug\net9.0\Templates\Pages\MoviePage\MoviePage.html
+C:\Users\fajzu\OneDrive\Документы\GitHub\ORIS_Semester_Work\MyHTTPServer\MyHTTPServer\bin\Debug\net9.0\EndPoints\RegistrationEndPoint.cs
+C:\Users\fajzu\OneDrive\Документы\GitHub\ORIS_Semester_Work\MyHTTPServer\MyHTTPServer\bin\Debug\net9.0\Templates\Pages\Registration\registrationPage.html
+C:\Users\fajzu\OneDrive\Документы\GitHub\ORIS_Semester_Work\MyHTTPServer\MyHTTPServer\bin\Debug\net9.0\public\assets\adminPanel.css
+C:\Users\fajzu\OneDrive\Документы\GitHub\ORIS_Semester_Work\MyHTTPServer\MyHTTPServer\bin\Debug\net9.0\Templates\Pages\AdminPanel\AdminPanel.html

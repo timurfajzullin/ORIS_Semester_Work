@@ -160,8 +160,32 @@
                             </button>
                             <div id="drop-down" class="w18r0ctt" data-cy="drop-down" style="display: none;">
                                 <a class="mocked-styled-64 o1a1l6k1" href="#" onclick="selectYear('Любой год')">Любой год</a>
+                                <a class="mocked-styled-64 o1a1l6k1" href="#" onclick="selectYear('2025')">2025</a>
                                 <a class="mocked-styled-64 o1a1l6k1" href="#" onclick="selectYear('2024')">2024</a>
                                 <a class="mocked-styled-64 o1a1l6k1" href="#" onclick="selectYear('2023')">2023</a>
+                                <a class="mocked-styled-64 o1a1l6k1" href="#" onclick="selectYear('2022')">2022</a>
+                                <a class="mocked-styled-64 o1a1l6k1" href="#" onclick="selectYear('2021')">2021</a>
+                                <a class="mocked-styled-64 o1a1l6k1" href="#" onclick="selectYear('2020')">2020</a>
+                                <a class="mocked-styled-64 o1a1l6k1" href="#" onclick="selectYear('2019')">2019</a>
+                                <a class="mocked-styled-64 o1a1l6k1" href="#" onclick="selectYear('2018')">2018</a>
+                                <a class="mocked-styled-64 o1a1l6k1" href="#" onclick="selectYear('2017')">2017</a>
+                                <a class="mocked-styled-64 o1a1l6k1" href="#" onclick="selectYear('2016')">2016</a>
+                                <a class="mocked-styled-64 o1a1l6k1" href="#" onclick="selectYear('2015')">2015</a>
+                                <a class="mocked-styled-64 o1a1l6k1" href="#" onclick="selectYear('2014')">2014</a>
+                                <a class="mocked-styled-64 o1a1l6k1" href="#" onclick="selectYear('2013')">2013</a>
+                                <a class="mocked-styled-64 o1a1l6k1" href="#" onclick="selectYear('2012')">2012</a>
+                                <a class="mocked-styled-64 o1a1l6k1" href="#" onclick="selectYear('2011')">2011</a>
+                                <a class="mocked-styled-64 o1a1l6k1" href="#" onclick="selectYear('2010')">2010</a>
+                                <a class="mocked-styled-64 o1a1l6k1" href="#" onclick="selectYear('2009')">2009</a>
+                                <a class="mocked-styled-64 o1a1l6k1" href="#" onclick="selectYear('2008')">2008</a>
+                                <a class="mocked-styled-64 o1a1l6k1" href="#" onclick="selectYear('2007')">2007</a>
+                                <a class="mocked-styled-64 o1a1l6k1" href="#" onclick="selectYear('2006')">2006</a>
+                                <a class="mocked-styled-64 o1a1l6k1" href="#" onclick="selectYear('2005')">2005</a>
+                                <a class="mocked-styled-64 o1a1l6k1" href="#" onclick="selectYear('2004')">2004</a>
+                                <a class="mocked-styled-64 o1a1l6k1" href="#" onclick="selectYear('2003')">2003</a>
+                                <a class="mocked-styled-64 o1a1l6k1" href="#" onclick="selectYear('2002')">2002</a>
+                                <a class="mocked-styled-64 o1a1l6k1" href="#" onclick="selectYear('2001')">2001</a>
+                                
                             </div>
                         </div>
                     </div>
@@ -171,7 +195,7 @@
                 </div>
 
                 <div data-active="false" class="mocked-styled-754 s3k86sl">
-                    <button data-disabled="false" color="default" data-cy="read-filters" class="mocked-styled-1 b1oy04za">
+                    <button data-cy="read-filters" class="mocked-styled-1 b1oy04za">
                         <span class="mocked-styled-0 i1tw7fe7" style="--i1tw7fe7-0: 4.063vw; --i1tw7fe7-1: 13px; --i1tw7fe7-2: 0.677vw;"></span>Применить</button>
                 </div>
         </div>
@@ -183,7 +207,7 @@
 <!--            ЗДЕСЬ КОНЕЦ-->
             <div class="mocked-styled-390 s12mk9hc">
                 <div class="mocked-styled-389 s1qj5ghg">
-                    <button id="showMoreButton" data-disabled="false" color="default" data-cy="see-more-btn" class="mocked-styled-1 b1oy04za"><span class="mocked-styled-0 i1tw7fe7" style="--i1tw7fe7-0: 4.063vw; --i1tw7fe7-1: 13px; --i1tw7fe7-2: 0.677vw;"></span>Показать еще </button>
+                    <button id="showMoreButton" class="mocked-styled-1 b1oy04za"><span class="mocked-styled-0 i1tw7fe7" style="--i1tw7fe7-0: 4.063vw; --i1tw7fe7-1: 13px; --i1tw7fe7-2: 0.677vw;"></span>Показать еще </button>
                 </div>
             </div>
         </div>
@@ -474,22 +498,48 @@
     let currentIndex = 0; // Текущий индекс для отслеживания отображаемых карточек
 
     function addCards(cards) {
-        const nextUrls = cards.slice(currentIndex, currentIndex + 12);
+        // Получаем кнопку "Показать еще"
+        const showMoreButton = document.getElementById('showMoreButton');
+        const displayedCards = new Set(); // Множество для отслеживания выведенных карточек
 
-        nextUrls.forEach(url => {
-            const card = document.createElement('div');
-            card.innerHTML = url;
-            catalog.appendChild(card);
-        });
+        // Создаем цикл для показа карточек по 12 штук
+        function displayNextBatch() {
+            const nextUrls = [];
 
-        // Обновляем текущий индекс
-        currentIndex += 12;
-        // Прячем кнопку, если больше нет карточек для показа
-        if (currentIndex >= cards.length) {
-            const showMoreButton = document.getElementById('showMoreButton');
-            showMoreButton.style.display = 'none'; // Скрыть кнопку, если больше нечего показывать
+            // Добавляем до 12 карточек, избегая повторов
+            for (let i = currentIndex; i < cards.length && nextUrls.length < 12; i++) {
+                if (!displayedCards.has(cards[i])) {
+                    nextUrls.push(cards[i]);
+                    displayedCards.add(cards[i]);
+                }
+            }
+
+            nextUrls.forEach(url => {
+                const card = document.createElement('div');
+                card.innerHTML = url;
+                catalog.appendChild(card);
+            });
+
+            // Обновляем текущий индекс
+            currentIndex += nextUrls.length;
+
+            // Проверяем, остались ли еще карточки
+            if (currentIndex >= cards.length || displayedCards.size === cards.length) {
+                showMoreButton.style.display = 'none'; // Скрываем кнопку, если карточек больше нет
+            } else {
+                showMoreButton.style.display = 'block'; // Показываем кнопку, если есть еще карточки
+            }
         }
+
+        // Добавляем обработчик события для кнопки "Показать еще"
+        showMoreButton.onclick = displayNextBatch;
+
+        // Показываем первую порцию карточек
+        displayNextBatch();
     }
+
+
+
 
     // AJAX запрос для получения URLs
     function GetAjaxRequest(filter) {
@@ -504,7 +554,7 @@
                 addCards(data);
 
                 // Получаем кнопку "Показать еще"
-                const showMoreButton = document.querySelector('[data-cy="see-more-btn"]');
+                const showMoreButton = document.getElementById('showMoreButton');
 
                 // Добавляем обработчик события "click"
                 showMoreButton.addEventListener('click', () => {
@@ -521,38 +571,60 @@
 
     // Функция для считывания текущих значений фильтров
     function applyFilters() {
-        const countryFilter = document.getElementById('current-country-filter-value').textContent.trim();
+        const CountryFilter = document.getElementById('current-country-filter-value').textContent;
+        const YearFilter = document.getElementById('current-filter-value').textContent;
+        const GenreFilter = document.getElementById('current-genre-filter-value').textContent;
         const allButton = document.querySelectorAll('button[data-is-active]');
         const activeButton = Array.from(allButton).find(button => button.getAttribute('data-is-active') === 'true');
 
+        // Базовый URL запроса
+        let url = `GetUrls`;
 
-        if (countryFilter === 'Любая страна') {
-            if (!GetAjaxRequest('CheckAuthorization') || activeButton.textContent.toString() === 'Все')
-            {
-                GetAjaxRequest('GetUrls')
-            }
-            if (activeButton.textContent.toString() === 'Бесплатно')
-            {
-                const parametr = 'free';
-                GetAjaxRequest(`GetMoviesWithPrivacyFilter?privacy=${parametr}`)
-            }
-            if (activeButton.textContent.toString() === 'По подписке')
-            {
-                const parametr = 'privacy';
-                GetAjaxRequest(`GetMoviesWithPrivacyFilter?privacy=${parametr}`)
-            }
+        // Добавляем параметры, которые отличаются от стандартных значений
+        const params = [];
+
+        if (CountryFilter !== "Любая страна") {
+            params.push(`country=${CountryFilter}`);
         }
 
-        else{
-            GetAjaxRequest(`GetMoviesWithCountryFilter?country=${countryFilter}`);
-            allButton.forEach(button => {
-                if (button.textContent.trim() === 'Все') {
-                    setActiveButton(button)
+        if (YearFilter !== "Любой год") {
+            params.push(`year=${YearFilter}`);
+        }
+
+        if (GenreFilter !== "Любой жанр") {
+            params.push(`genre=${GenreFilter}`);
+        }
+
+        // Проверяем авторизацию
+        fetch('dashboard/CheckAuthorization')
+            .then(response => response.json())
+            .then(isAuthorized => {
+                // Если пользователь авторизован и активная кнопка не "Все"
+                if (isAuthorized && activeButton.textContent !== 'Все') {
+                    params.push(`privacy=${activeButton.textContent}`);
                 }
+
+                // Добавляем параметры к URL, если они есть
+                if (params.length > 0) {
+                    url += `?${params.join('&')}`;
+                }
+
+                // Выполняем запрос
+                GetAjaxRequest(url);
             })
-            
-        }
+            .catch(error => {
+                console.error('Ошибка при проверке авторизации:', error);
+
+                // Даже в случае ошибки проверки продолжаем с текущими параметрами
+                if (params.length > 0) {
+                    url += `?${params.join('&')}`;
+                }
+
+                GetAjaxRequest(url);
+            });
     }
+
+
 
     document.querySelector('[data-cy="read-filters"]').addEventListener('click', applyFilters);
 

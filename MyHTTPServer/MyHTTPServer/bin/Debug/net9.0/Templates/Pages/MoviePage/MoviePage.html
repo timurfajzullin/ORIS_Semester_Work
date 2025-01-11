@@ -86,15 +86,14 @@
             <div class="mocked-styled-193 f18artvt">
                 <div data-cy="project" data-is-wide="false" class="mocked-styled-192 p1xvb723">
                     <div class="d1jnbpy8" data-cy="desktop-layout" style="opacity: 1;">
-                        <div class="iebw1u" data-cy="image" style="background-image: url('https://mgf-static-ssl.ctc.ru/images/ctc-entity-pagewidget-project-fulllengthprojectwidget/844195/backgroundimage/web/67473d1622c87-1740x815.jpeg');">
+                        <div class="iebw1u" data-cy="image" style="background-image: url('{{posterUrl}}');">
                             <div data-cy="top-overlay" class="mocked-styled-107 tp7q6vb"></div>
                             <div class="mocked-styled-186 i1o1gofl">
                                 <div data-cy="breadcrumbs" class="mocked-styled-166 blagcnx">
                                 </div>
                                 <div class="mocked-styled-185 phg4fv5">
                                     <div data-cy="project-info" class="mocked-styled-181 p144ig6f" style="--p144ig6f-0: -8.438vw; --p144ig6f-1: -67px;">
-                                        <div data-cy="title" class="mocked-styled-176 tdp9hs9">Финист. Первый богатырь</div>
-                                        <div data-cy="description" class="mocked-styled-177 dxlp7p5">Финист — самый удалой богатырь. Чтобы всех удивить, он отправится за новыми свершениями в непростое путешествие...</div>
+                                        <div data-cy="title" class="mocked-styled-176 tdp9hs9">{{Title}}</div>
                                         <div data-cy="controls" class="mocked-styled-182 c3r8t9f">
                                             <div class="mocked-styled-183 f12qdmn1">
                                                 <button data-disabled="false" color="default" data-cy="first-button" class="mocked-styled-1 b1oy04za">
@@ -137,6 +136,8 @@
                                 <div data-cy="tab" class="mocked-styled-644 t2g7dy0">
                                     <button data-disabled="false" color="default" class="mocked-styled-1 b1oy04za"><span class="mocked-styled-0 i1tw7fe7" style="--i1tw7fe7-0: 4.063vw; --i1tw7fe7-1: 13px; --i1tw7fe7-2: 0.677vw;"></span>Фильмы</button>
                                 </div>
+
+                                <iframe src="https://vk.com/video_ext.php?oid=-190452322&id=456239102&hd=2&autoplay=1" width="426" height="240" allow="encrypted-media; fullscreen; picture-in-picture; screen-wake-lock;" frameborder="0" allowfullscreen></iframe>
                             </swiper-slide>
                         </swiper-container>
                         <div class="mocked-styled-15 a1u1siha">
@@ -289,40 +290,17 @@
                     <div class="mocked-styled-637 wrqtl2">
                         <div rel="" data-cy="description" class="mocked-styled-639 dju8llr">
                             <p>
-                                Финист Ясный Сокол — самый удалой богатырь Белогорья, самый сильный, самый ловкий и самый красивый. Все остальные богатыри на него равняются, дети хотят быть на него похожими, а девушки — просто заглядываются. Он
-                                горделив и самоуверен, и порой даже отказывается от подвигов, если считает их скучными и неинтересными. Но ему просто необходимо оставаться лучшим, чтобы люди продолжали им восхищаться! Чтобы всех удивить, Финист
-                                отправится за новыми свершениями в непростое путешествие, которое приведет его в восточные земли...
+                                {{Description}}
                             </p>
                         </div>
                         <div class="mocked-styled-640 i1p5e91i">
                             <div data-cy="info" class="mocked-styled-641 iv7dhgj">
-                                <p><strong>Производство</strong>студия Yellow, Black and White, онлайн-кинотеатр START, <br>телеканал «Россия», при поддержке Фонда кино</br></p>
+                                <p><strong>Производство</strong>{{Production}}</br></p>
 
-                                <p><strong>Жанр</strong>фэнтези</p>
-
-                                <p><strong>Генеральные продюсеры</strong>Эдуард Илоян, Денис Жалинский, Виталий Шляппо, Антон Златопольский</p>
-
-                                <p><strong>Продюсеры</strong>Михаил Ткаченко, Сергей Маевский</p>
-
-                                <p><strong>Исполнительный продюсер</strong>Ирина Винтовкина</p>
-
-                                <p><strong>Режиссёр-продюсер</strong>Дмитрий Дьяченко</p>
-
-                                <p><strong>Второй режиссёр</strong> Екатерина Васильева</p>
-
-                                <p><strong>Оператор-постановщик</strong>Николай Богачев</p>
-
-                                <p><strong>Художник по гриму</strong>Ольга Афиногенова</p>
-
-                                <p><strong>Художник по костюмам</strong>Марина Ананьева, Ирина Чепенко</p>
-
-                                <p><strong>Кастинг-директор</strong>Татьяна Хречкова</p>
-
-                                <p><strong>Авторы сценария</strong>Виталий Шляппо, Василий Куценко, Анатолий Молчанов, Вячеслав Зуб</p>
-
+                                <p><strong>Жанр</strong>{{Genre}}</p>
+                                
                                 <p>
-                                    <strong>В ролях</strong>Кирилл Зайцев, Юлия Пересильд, Елена Яковлева, Федор Добронравов, Сергей Лавыгин, Кристина Строителева, Федор Гамалея, Софья Зайка, Артем Гайдуков, Нариман Утакаев, Иван Батарев, Сергей
-                                    Марухин, Петр Янданэ и др.
+                                    <strong>В ролях</strong>{{Starring}}
                                 </p>
                             </div>
                         </div>
@@ -638,101 +616,71 @@
 </body>
 
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        loadComments();
+    document.querySelector('[data-cy="send-comment-button"]').addEventListener('click', function() {
+        // Находим текстовое поле для комментария
+        const commentInput = document.querySelector('textarea[placeholder="Написать комментарий"]');
+        const commentText = commentInput.value.trim();
 
-        document.querySelector('[data-cy="send-comment-button"]').addEventListener('click', function() {
-            // Находим текстовое поле для комментария
-            const commentInput = document.querySelector('textarea[placeholder="Написать комментарий"]');
-            const commentText = commentInput.value.trim();
-
-            // Проверяем, что поле не пустое
-            if (commentText) {
-                // Находим элементы для обновления
-                const commentsCount = document.querySelector('[data-cy="count"]');
-                const commentsList = document.querySelector('[data-cy="comments-list"]');
-
-                // Увеличиваем счетчик комментариев
-                const currentCount = parseInt(commentsCount.textContent) || 0;
-                commentsCount.textContent = currentCount + 1 + ' комментарий' + (currentCount === 0 ? '' : 'а');
-
-                // Получаем email отправителя
-                fetch('movie/GetUserLogin')
-                    .then(response => response.json())
-                    .then(data => {
-                        const email = data;
-
-                        // Создаем новый элемент комментария
-                        const commentContainer = document.createElement('div');
-
-                        // Создаем элемент для email
-                        const emailElement = document.createElement('div');
-                        emailElement.textContent = email;
-                        emailElement.style.fontWeight = 'bold';
-                        emailElement.style.color = '#ebbb04';
-                        emailElement.style.margin = '20px 0';
-                        commentContainer.appendChild(emailElement);
-
-                        // Добавляем текст комментария
-                        const newComment = document.createElement('div');
-                        newComment.textContent = commentText;
-                        newComment.style.margin = '0 20px';
-                        commentContainer.appendChild(newComment);
-
-                        // Добавляем комментарий в список
-                        commentsList.appendChild(commentContainer);
-
-                        // Сохраняем комментарий в localStorage
-                        saveComment(email, commentText);
-                    })
-                    .catch(error => {
-                        console.error('Ошибка получения email:', error);
-                    });
-
-                // Очищаем текстовое поле
-                commentInput.value = '';
-            } else {
-                alert('Пожалуйста, введите комментарий.');
-            }
-        });
-
-        function loadComments() {
-            const comments = JSON.parse(localStorage.getItem('comments')) || [];
-            const commentsList = document.querySelector('[data-cy="comments-list"]');
+        // Проверяем, что поле не пустое
+        if (commentText) {
+            // Находим элементы для обновления
             const commentsCount = document.querySelector('[data-cy="count"]');
+            const commentsList = document.querySelector('[data-cy="comments-list"]');
+            const currentDateTime = new Date().toISOString();
 
-            comments.forEach(comment => {
-                const commentContainer = document.createElement('div');
+            // Увеличиваем счетчик комментариев
+            const currentCount = parseInt(commentsCount.textContent) || 0;
+            commentsCount.textContent = currentCount + 1 + ' комментарий' + (currentCount === 0 ? '' : 'а');
 
-                // Создаем элемент для email
-                const emailElement = document.createElement('div');
-                emailElement.textContent = comment.email;
-                emailElement.style.fontWeight = 'bold';
-                emailElement.style.color = '#ebbb04';
-                emailElement.style.margin = '20px 0';
-                commentContainer.appendChild(emailElement);
+            // Получаем email отправителя
+            fetch('movie/GetUserLogin')
+                .then(response => response.json())
+                .then(data => {
+                    const name = data;
+                    const request = `admin/AddComment?name=${encodeURIComponent(name)}&textarea=${encodeURIComponent(commentText)}&datetime=${encodeURIComponent(currentDateTime)}`;
 
-                // Добавляем текст комментария
-                const commentText = document.createElement('div');
-                commentText.textContent = comment.text;
+                    fetch(request)
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error(`Ошибка HTTP: ${response.status}`);
+                            }
+                            return response.json();
+                        })
+                        .then(comment => {
+                                const commentContainer = document.createElement('div');
 
-                commentText.style.margin = '0 20px';
-                commentContainer.appendChild(commentText);
+                                // Добавляем имя пользователя
+                                const emailElement = document.createElement('div');
+                                emailElement.textContent = name;
+                                emailElement.style.fontWeight = 'bold';
+                                emailElement.style.color = '#ebbb04';
+                                emailElement.style.margin = '20px 0';
+                                commentContainer.appendChild(emailElement);
 
-                // Добавляем комментарий в список
-                commentsList.appendChild(commentContainer);
-            });
+                                // Добавляем текст комментария
+                                const newComment = document.createElement('div');
+                                newComment.innerHTML = commentText;
+                                newComment.style.margin = '0 20px';
+                                commentContainer.appendChild(newComment);
 
-            // Устанавливаем счетчик комментариев
-            commentsCount.textContent = comments.length + ' комментарий' + (comments.length === 1 ? '' : 'а');
-        }
+                                // Добавляем комментарий в список
+                                commentsList.appendChild(commentContainer);
+                        })
+                        .catch(error => {
+                            console.error('Ошибка обработки комментария:', error);
+                        });
+                })
+                .catch(error => {
+                    console.error('Ошибка получения email:', error);
+                });
 
-        function saveComment(email, text) {
-            const comments = JSON.parse(localStorage.getItem('comments')) || [];
-            comments.push({ email, text });
-            localStorage.setItem('comments', JSON.stringify(comments));
+            // Очищаем текстовое поле
+            commentInput.value = '';
+        } else {
+            alert('Пожалуйста, введите комментарий.');
         }
     });
+
 
 
 </script>

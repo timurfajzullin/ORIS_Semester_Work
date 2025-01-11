@@ -1,0 +1,186 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>СТС</title>
+    <link href="/assets/adminPanel.css" rel="stylesheet">
+</head>
+<body>
+    <div class="qwe">
+        <div class="container">
+            <h1>Управление данными</h1>
+            <div>
+                <div class="input-group">
+                    <p>Name</p>
+                    <label id="name"><input type="text" placeholder="Введите данные 1"></label>
+                </div>
+                <p>Url</p>
+                <div class="input-group">
+                    <label id="url"><input type="text" placeholder="Введите данные 1"></label>
+                </div>
+                <p>Country</p>
+                <div class="input-group">
+                    <label id="country"><input type="text" placeholder="Введите данные 1"></label>
+                </div>
+                <p>Year</p>
+                <div class="input-group">
+                    <label id="year"><input type="text" placeholder="Введите данные 1"></label>
+                </div>
+                <p>Privacy</p>
+                <div class="input-group">
+                    <label id="privacy"><input type="text" placeholder="Введите данные 1"></label>
+                </div>
+                <p>Genre</p>
+                <div class="input-group">
+                    <label id="genre"><input type="text" placeholder="Введите данные 1"></label>
+                </div>
+            </div>
+            <div class="button-group">
+                <button id="showButton">Показать</button>
+                <button id="addButton">Добавить</button>
+                <button id="deleteButton">Удалить</button>
+            </div>
+        </div>
+        
+        <div id="catalog"></div>
+    </div>
+</body>
+
+<script>
+    const catalog = document.getElementById('catalog');
+
+    function GetValues() {
+        const name = document.querySelector('#name input').value;
+        const posterurl = document.querySelector('#url input').value;
+        const country = document.querySelector('#country input').value;
+        const year = document.querySelector('#year input').value;
+        const privacy = document.querySelector('#privacy input').value;
+        const genre = document.querySelector('#genre input').value;
+
+        const params = new URLSearchParams();
+
+        if (name !== '') params.append('name', name);
+        if (posterurl !== '') params.append('posterurl', posterurl);
+        if (country !== '') params.append('country', country);
+        if (year !== '') params.append('year', year);
+        if (privacy !== '') params.append('privacy', privacy);
+        if (genre !== '') params.append('genre', genre);
+        return params.toString();
+    }
+
+
+    document.getElementById('showButton').addEventListener('click',ShowCards);
+    document.getElementById('addButton').addEventListener('click', AddCard);
+    document.getElementById('deleteButton').addEventListener('click', DeleteCards)
+    
+    
+    function GetAjaxRequets(requestUrl)
+    {
+        fetch(requestUrl)
+            .then(response => response.json())
+            .then(data => {
+                // Очищаем предыдущие результаты
+                catalog.innerHTML = '';
+
+                // Добавляем карточки в каталог
+                data.forEach(movie => {
+                    const card = document.createElement('div');
+                    card.className = 'movie-card'; // Добавляем класс для стилизации
+                    card.style.backgroundImage = `url(${movie.PosterURl})`;
+                    card.style.backgroundSize = '200px 300px';  // Устанавливаем размер изображения
+                    card.style.backgroundPosition = 'center';    // Центрируем изображение на фоне
+                    card.style.width = '200px';
+                    card.style.height = '300px';
+                    card.innerHTML = `
+                    <p>${movie.Name}</p>
+                    <p><strong>Жанр:</strong> ${movie.Genre}</p>
+                    <p><strong>Приватность:</strong> ${movie.Privacy}</p>
+                    <p><strong>Год:</strong> ${movie.Year}</p>
+                    <p><strong>Страна:</strong> ${movie.Country}</p>
+                `;
+                    catalog.appendChild(card);
+                });
+            })
+            .catch(error => {
+                console.error('Ошибка при получении данных:', error);
+            });
+    }
+    
+    function DeleteCards()
+    {
+        // Получаем ссылки на все элементы ввода
+        const titleInput = document.querySelector('#name input');
+        const posterurlInput = document.querySelector('#url input');
+        const countryInput = document.querySelector('#country input');
+        const yearInput = document.querySelector('#year input');
+        const privacyInput = document.querySelector('#privacy input');
+        const genreInput = document.querySelector('#genre input');
+        if (
+            titleInput.value.trim() === '' &&
+            posterurlInput.value.trim() === '' &&
+            countryInput.value.trim() === '' &&
+            yearInput.value.trim() === '' &&
+            privacyInput.value.trim() === '' &&
+            genreInput.value.trim() === ''
+        ) {
+            alert('Вы действительно хотите полностью очистить базу данных????????????????????????????????????????????????????????????????????????\n' +
+            '?????????????????????????????????????????????????????????????????????????\n???????????????????????????????????????????????????????');
+            return;
+        }
+        GetAjaxRequets(`admin/DeleteInformation?${GetValues()}`);
+    }
+
+    function ShowCards()
+    {
+        GetAjaxRequets(`admin/GetInformation?${GetValues()}`);
+    }
+
+    function AddCard() {
+        // Получаем ссылки на все элементы ввода
+        const titleInput = document.querySelector('#name input');
+        const posterurlInput = document.querySelector('#url input');
+        const countryInput = document.querySelector('#country input');
+        const yearInput = document.querySelector('#year input');
+        const privacyInput = document.querySelector('#privacy input');
+        const genreInput = document.querySelector('#genre input');
+        if (
+            titleInput.value.trim() === '' ||
+            posterurlInput.value.trim() === '' ||
+            countryInput.value.trim() === '' ||
+            yearInput.value.trim() === '' ||
+            privacyInput.value.trim() === '' ||
+            genreInput.value.trim() === ''
+        ) {
+            alert('Заполните все поля перед добавлением фильма.');
+            return;
+        }
+        
+        fetch(`admin/AddInformation?${GetValues()}`)
+            .then(response => response.json())
+            .then(movie => {
+                // Очищаем предыдущие результаты
+                catalog.innerHTML = '';
+
+                    const card = document.createElement('div');
+                    card.className = 'movie-card'; // Добавляем класс для стилизации
+                    card.style.backgroundImage = `url(${movie.PosterURl})`;
+                    card.style.backgroundSize = '200px 300px';  // Устанавливаем размер изображения
+                    card.style.backgroundPosition = 'center';    // Центрируем изображение на фоне
+                    card.style.width = '200px';
+                    card.style.height = '300px';
+                    card.innerHTML = `
+                    <p>${movie.Name}</p>
+                    <p><strong>Жанр:</strong> ${movie.Genre}</p>
+                    <p><strong>Приватность:</strong> ${movie.Privacy}</p>
+                    <p><strong>Год:</strong> ${movie.Year}</p>
+                    <p><strong>Страна:</strong> ${movie.Country}</p>
+                `;
+                    catalog.appendChild(card);
+                })
+            .catch(error => {
+                console.error('Ошибка при получении данных:', error);
+            });
+    }
+</script>
+</html>

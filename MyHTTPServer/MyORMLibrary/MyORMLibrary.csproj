@@ -19,4 +19,8 @@
       </Compile>
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\TemplateEngine\TemplateEngine.csproj" />
+    </ItemGroup>
+
 </Project>

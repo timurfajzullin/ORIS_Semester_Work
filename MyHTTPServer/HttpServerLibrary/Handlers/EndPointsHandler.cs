@@ -161,7 +161,7 @@ internal class EndPointsHandler : Handler
         else
         {
             // Дополнительная обработка для сегментов URL
-            var urlSegments = context.Request.Url.Segments
+            var urlSegments = context.Request.Url?.Segments
                 .Skip(2) // Пропуск первых двух сегментов
                 .Select(s => s.Replace("/", ""))
                 .ToArray();

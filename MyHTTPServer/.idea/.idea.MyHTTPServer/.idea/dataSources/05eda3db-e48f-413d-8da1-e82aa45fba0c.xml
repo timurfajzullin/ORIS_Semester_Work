@@ -16760,93 +16760,93 @@
       <DefaultGroup>1</DefaultGroup>
       <ObjectId>1</ObjectId>
     </filegroup>
-    <role id="5549" parent="5510" name="public">
-      <AuthType>none</AuthType>
-      <ObjectId>0</ObjectId>
-      <Type>database-role</Type>
-      <OwnerId>1</OwnerId>
-    </role>
-    <role id="5550" parent="5510" name="dbo">
-      <AuthType>instance</AuthType>
-      <DefaultSchema>dbo</DefaultSchema>
-      <ObjectId>1</ObjectId>
-    </role>
-    <role id="5551" parent="5510" name="guest">
-      <AuthType>none</AuthType>
-      <DefaultSchema>guest</DefaultSchema>
-      <ObjectId>2</ObjectId>
-    </role>
-    <role id="5552" parent="5510" name="INFORMATION_SCHEMA">
-      <AuthType>none</AuthType>
-      <ObjectId>3</ObjectId>
-    </role>
-    <role id="5553" parent="5510" name="sys">
-      <AuthType>none</AuthType>
-      <ObjectId>4</ObjectId>
-    </role>
-    <role id="5554" parent="5510" name="##MS_PolicyEventProcessingLogin##">
-      <AuthType>instance</AuthType>
-      <DefaultSchema>dbo</DefaultSchema>
-      <ObjectId>5</ObjectId>
-    </role>
-    <role id="5555" parent="5510" name="##MS_AgentSigningCertificate##">
+    <role id="5549" parent="5510" name="##MS_AgentSigningCertificate##">
       <AuthType>none</AuthType>
       <ObjectId>6</ObjectId>
       <Type>certificate-mapped-user</Type>
     </role>
-    <role id="5556" parent="5510" name="db_owner">
-      <AuthType>none</AuthType>
-      <ObjectId>16384</ObjectId>
-      <Type>database-role</Type>
-      <OwnerId>1</OwnerId>
+    <role id="5550" parent="5510" name="##MS_PolicyEventProcessingLogin##">
+      <AuthType>instance</AuthType>
+      <DefaultSchema>dbo</DefaultSchema>
+      <ObjectId>5</ObjectId>
     </role>
-    <role id="5557" parent="5510" name="db_accessadmin">
+    <role id="5551" parent="5510" name="INFORMATION_SCHEMA">
+      <AuthType>none</AuthType>
+      <ObjectId>3</ObjectId>
+    </role>
+    <role id="5552" parent="5510" name="db_accessadmin">
       <AuthType>none</AuthType>
       <ObjectId>16385</ObjectId>
       <Type>database-role</Type>
       <OwnerId>1</OwnerId>
     </role>
-    <role id="5558" parent="5510" name="db_securityadmin">
-      <AuthType>none</AuthType>
-      <ObjectId>16386</ObjectId>
-      <Type>database-role</Type>
-      <OwnerId>1</OwnerId>
-    </role>
-    <role id="5559" parent="5510" name="db_ddladmin">
-      <AuthType>none</AuthType>
-      <ObjectId>16387</ObjectId>
-      <Type>database-role</Type>
-      <OwnerId>1</OwnerId>
-    </role>
-    <role id="5560" parent="5510" name="db_backupoperator">
+    <role id="5553" parent="5510" name="db_backupoperator">
       <AuthType>none</AuthType>
       <ObjectId>16389</ObjectId>
       <Type>database-role</Type>
       <OwnerId>1</OwnerId>
     </role>
-    <role id="5561" parent="5510" name="db_datareader">
+    <role id="5554" parent="5510" name="db_datareader">
       <AuthType>none</AuthType>
       <ObjectId>16390</ObjectId>
       <Type>database-role</Type>
       <OwnerId>1</OwnerId>
     </role>
-    <role id="5562" parent="5510" name="db_datawriter">
+    <role id="5555" parent="5510" name="db_datawriter">
       <AuthType>none</AuthType>
       <ObjectId>16391</ObjectId>
       <Type>database-role</Type>
       <OwnerId>1</OwnerId>
     </role>
-    <role id="5563" parent="5510" name="db_denydatareader">
+    <role id="5556" parent="5510" name="db_ddladmin">
+      <AuthType>none</AuthType>
+      <ObjectId>16387</ObjectId>
+      <Type>database-role</Type>
+      <OwnerId>1</OwnerId>
+    </role>
+    <role id="5557" parent="5510" name="db_denydatareader">
       <AuthType>none</AuthType>
       <ObjectId>16392</ObjectId>
       <Type>database-role</Type>
       <OwnerId>1</OwnerId>
     </role>
-    <role id="5564" parent="5510" name="db_denydatawriter">
+    <role id="5558" parent="5510" name="db_denydatawriter">
       <AuthType>none</AuthType>
       <ObjectId>16393</ObjectId>
       <Type>database-role</Type>
       <OwnerId>1</OwnerId>
+    </role>
+    <role id="5559" parent="5510" name="db_owner">
+      <AuthType>none</AuthType>
+      <ObjectId>16384</ObjectId>
+      <Type>database-role</Type>
+      <OwnerId>1</OwnerId>
+    </role>
+    <role id="5560" parent="5510" name="db_securityadmin">
+      <AuthType>none</AuthType>
+      <ObjectId>16386</ObjectId>
+      <Type>database-role</Type>
+      <OwnerId>1</OwnerId>
+    </role>
+    <role id="5561" parent="5510" name="dbo">
+      <AuthType>instance</AuthType>
+      <DefaultSchema>dbo</DefaultSchema>
+      <ObjectId>1</ObjectId>
+    </role>
+    <role id="5562" parent="5510" name="guest">
+      <AuthType>none</AuthType>
+      <DefaultSchema>guest</DefaultSchema>
+      <ObjectId>2</ObjectId>
+    </role>
+    <role id="5563" parent="5510" name="public">
+      <AuthType>none</AuthType>
+      <ObjectId>0</ObjectId>
+      <Type>database-role</Type>
+      <OwnerId>1</OwnerId>
+    </role>
+    <role id="5564" parent="5510" name="sys">
+      <AuthType>none</AuthType>
+      <ObjectId>4</ObjectId>
     </role>
     <schema id="5565" parent="5510" name="INFORMATION_SCHEMA">
       <ObjectId>3</ObjectId>
@@ -16881,8 +16881,8 @@
     <schema id="5575" parent="5510" name="dbo">
       <Current>1</Current>
       <Grants>1787153412|||0|select|G</Grants>
-      <IntrospectionTimestamp>2025-01-08.15:12:27.157</IntrospectionTimestamp>
-      <LastIntrospectionLocalTimestamp>2025-01-08.12:12:27</LastIntrospectionLocalTimestamp>
+      <IntrospectionTimestamp>2025-01-11.02:44:39.983</IntrospectionTimestamp>
+      <LastIntrospectionLocalTimestamp>2025-01-10.23:44:39</LastIntrospectionLocalTimestamp>
       <ObjectId>1</ObjectId>
       <PermissionsCheckSum>1290631732</PermissionsCheckSum>
     </schema>
@@ -16906,36 +16906,37 @@
       <RoutineType>proc</RoutineType>
       <SourceTextLength>83</SourceTextLength>
     </routine>
-    <table id="5580" parent="5575" name="Movies">
-      <CreatedTimestamp>2025-01-08.01:03:38.093</CreatedTimestamp>
+    <table id="5580" parent="5575" name="Comments">
+      <CreatedTimestamp>2025-01-11.11:08:16.270</CreatedTimestamp>
       <DataRetentionPeriod>-1</DataRetentionPeriod>
-      <ModifiedTimestamp>2025-01-08.01:03:38.093</ModifiedTimestamp>
-      <ObjectId>935674381</ObjectId>
-      <LobDataSpaceId>0</LobDataSpaceId>
+      <ModifiedTimestamp>2025-01-11.11:08:16.270</ModifiedTimestamp>
+      <ObjectId>1879677744</ObjectId>
+      <LobDataSpaceId>1</LobDataSpaceId>
       <PartitionDataSpaceId>1</PartitionDataSpaceId>
     </table>
-    <table id="5581" parent="5575" name="MoviesWithCountryFilter">
-      <CreatedTimestamp>2025-01-08.15:08:28.137</CreatedTimestamp>
+    <table id="5581" parent="5575" name="DBWithAllMovies">
+      <CreatedTimestamp>2025-01-10.23:42:35.220</CreatedTimestamp>
       <DataRetentionPeriod>-1</DataRetentionPeriod>
-      <ModifiedTimestamp>2025-01-08.15:12:53.370</ModifiedTimestamp>
-      <ObjectId>1255675521</ObjectId>
-      <LobDataSpaceId>0</LobDataSpaceId>
+      <ModifiedTimestamp>2025-01-10.23:42:35.220</ModifiedTimestamp>
+      <ObjectId>1639676889</ObjectId>
+      <LobDataSpaceId>1</LobDataSpaceId>
       <PartitionDataSpaceId>1</PartitionDataSpaceId>
     </table>
-    <table id="5582" parent="5575" name="PrivacyMovies">
-      <CreatedTimestamp>2025-01-08.17:50:56.370</CreatedTimestamp>
+    <table id="5582" parent="5575" name="MoviePageInformation">
+      <CreatedTimestamp>2025-01-10.14:40:02.310</CreatedTimestamp>
       <DataRetentionPeriod>-1</DataRetentionPeriod>
-      <ModifiedTimestamp>2025-01-08.17:50:56.370</ModifiedTimestamp>
-      <ObjectId>1303675692</ObjectId>
-      <LobDataSpaceId>0</LobDataSpaceId>
+      <ModifiedTimestamp>2025-01-10.14:40:02.310</ModifiedTimestamp>
+      <ObjectId>1559676604</ObjectId>
+      <LobDataSpaceId>1</LobDataSpaceId>
       <PartitionDataSpaceId>1</PartitionDataSpaceId>
     </table>
     <table id="5583" parent="5575" name="users">
-      <CreatedTimestamp>2025-01-05.19:13:17.360</CreatedTimestamp>
+      <CreatedTimestamp>2025-01-10.22:33:22.340</CreatedTimestamp>
       <DataRetentionPeriod>-1</DataRetentionPeriod>
-      <ModifiedTimestamp>2025-01-05.19:13:17.360</ModifiedTimestamp>
-      <ObjectId>599673184</ObjectId>
-      <LobDataSpaceId>0</LobDataSpaceId>
+      <ModifiedTimestamp>2025-01-10.22:33:22.340</ModifiedTimestamp>
+      <ObjectId>1623676832</ObjectId>
+      <LobDataSpaceId>1</LobDataSpaceId>
+      <PartitionDataSpaceId>1</PartitionDataSpaceId>
     </table>
     <view id="5584" parent="5575" name="spt_values">
       <CreatedTimestamp>2024-11-06.22:51:25.183</CreatedTimestamp>
@@ -16943,95 +16944,105 @@
       <ObjectId>1787153412</ObjectId>
       <SourceTextLength>161</SourceTextLength>
     </view>
-    <column id="5585" parent="5580" name="PosterURL">
+    <column id="5585" parent="5580" name="UserName">
       <Position>1</Position>
-      <StoredType>varchar(255 char)|0s</StoredType>
+      <StoredType>nvarchar(max)|0s</StoredType>
     </column>
-    <column id="5586" parent="5581" name="PosterURL">
-      <NotNull>1</NotNull>
-      <Position>1</Position>
-      <StoredType>varchar(255 char)|0s</StoredType>
-    </column>
-    <column id="5587" parent="5581" name="Country">
+    <column id="5586" parent="5580" name="Text">
       <Position>2</Position>
-      <StoredType>varchar(100 char)|0s</StoredType>
+      <StoredType>nvarchar(max)|0s</StoredType>
     </column>
-    <column id="5588" parent="5582" name="PosterURL">
+    <column id="5587" parent="5580" name="DateTime">
+      <Position>3</Position>
+      <StoredType>datetime|0s</StoredType>
+    </column>
+    <column id="5588" parent="5581" name="Name">
       <Position>1</Position>
-      <StoredType>varchar(255 char)|0s</StoredType>
+      <StoredType>nvarchar(max)|0s</StoredType>
     </column>
-    <column id="5589" parent="5582" name="Privacy">
+    <column id="5589" parent="5581" name="PosterURl">
       <Position>2</Position>
-      <StoredType>varchar(255 char)|0s</StoredType>
+      <StoredType>varchar(max)|0s</StoredType>
     </column>
-    <column id="5590" parent="5583" name="id">
-      <NotNull>1</NotNull>
+    <column id="5590" parent="5581" name="Country">
+      <Position>3</Position>
+      <StoredType>nvarchar(max)|0s</StoredType>
+    </column>
+    <column id="5591" parent="5581" name="Year">
+      <Position>4</Position>
+      <StoredType>int|0s</StoredType>
+    </column>
+    <column id="5592" parent="5581" name="Genre">
+      <Position>5</Position>
+      <StoredType>nvarchar(max)|0s</StoredType>
+    </column>
+    <column id="5593" parent="5581" name="Privacy">
+      <Position>6</Position>
+      <StoredType>nvarchar(max)|0s</StoredType>
+    </column>
+    <column id="5594" parent="5582" name="Name">
+      <Position>1</Position>
+      <StoredType>nvarchar(max)|0s</StoredType>
+    </column>
+    <column id="5595" parent="5582" name="PosterURL">
+      <Position>2</Position>
+      <StoredType>nvarchar(max)|0s</StoredType>
+    </column>
+    <column id="5596" parent="5582" name="Genre">
+      <Position>3</Position>
+      <StoredType>nvarchar(max)|0s</StoredType>
+    </column>
+    <column id="5597" parent="5582" name="Production">
+      <Position>4</Position>
+      <StoredType>nvarchar(max)|0s</StoredType>
+    </column>
+    <column id="5598" parent="5582" name="Starring">
+      <Position>5</Position>
+      <StoredType>nvarchar(max)|0s</StoredType>
+    </column>
+    <column id="5599" parent="5582" name="Description">
+      <Position>6</Position>
+      <StoredType>nvarchar(max)|0s</StoredType>
+    </column>
+    <column id="5600" parent="5583" name="id">
       <Position>1</Position>
       <StoredType>int|0s</StoredType>
     </column>
-    <column id="5591" parent="5583" name="email">
-      <NotNull>1</NotNull>
+    <column id="5601" parent="5583" name="name">
       <Position>2</Position>
-      <StoredType>varchar(255 char)|0s</StoredType>
+      <StoredType>nvarchar(max)|0s</StoredType>
     </column>
-    <column id="5592" parent="5583" name="password">
-      <NotNull>1</NotNull>
+    <column id="5602" parent="5583" name="email">
       <Position>3</Position>
-      <StoredType>varchar(255 char)|0s</StoredType>
+      <StoredType>varchar(max)|0s</StoredType>
     </column>
-    <index id="5593" parent="5583" name="PK__users__3213E83F3EC72674">
-      <Clustering>1</Clustering>
-      <ColNames>id</ColNames>
-      <NameSurrogate>1</NameSurrogate>
-      <Position>1</Position>
-      <Unique>1</Unique>
-      <PartitionDataSpaceId>1</PartitionDataSpaceId>
-    </index>
-    <index id="5594" parent="5583" name="UQ__users__AB6E6164258D6C87">
-      <ColNames>email</ColNames>
-      <NameSurrogate>1</NameSurrogate>
-      <Position>2</Position>
-      <Unique>1</Unique>
-      <PartitionDataSpaceId>1</PartitionDataSpaceId>
-    </index>
-    <key id="5595" parent="5583" name="PK__users__3213E83F3EC72674">
-      <CreatedTimestamp>2025-01-05.19:13:17.363</CreatedTimestamp>
-      <ModifiedTimestamp>2025-01-05.19:13:17.363</ModifiedTimestamp>
-      <NameSurrogate>1</NameSurrogate>
-      <ObjectId>615673241</ObjectId>
-      <Primary>1</Primary>
-      <UnderlyingIndexName>PK__users__3213E83F3EC72674</UnderlyingIndexName>
-    </key>
-    <key id="5596" parent="5583" name="UQ__users__AB6E6164258D6C87">
-      <CreatedTimestamp>2025-01-05.19:13:17.363</CreatedTimestamp>
-      <ModifiedTimestamp>2025-01-05.19:13:17.363</ModifiedTimestamp>
-      <NameSurrogate>1</NameSurrogate>
-      <ObjectId>631673298</ObjectId>
-      <UnderlyingIndexName>UQ__users__AB6E6164258D6C87</UnderlyingIndexName>
-    </key>
-    <column id="5597" parent="5584" name="name">
+    <column id="5603" parent="5583" name="password">
+      <Position>4</Position>
+      <StoredType>varchar(max)|0s</StoredType>
+    </column>
+    <column id="5604" parent="5584" name="name">
       <Position>1</Position>
       <StoredType>nvarchar(35 char)|0s</StoredType>
     </column>
-    <column id="5598" parent="5584" name="number">
+    <column id="5605" parent="5584" name="number">
       <NotNull>1</NotNull>
       <Position>2</Position>
       <StoredType>int|0s</StoredType>
     </column>
-    <column id="5599" parent="5584" name="type">
+    <column id="5606" parent="5584" name="type">
       <NotNull>1</NotNull>
       <Position>3</Position>
       <StoredType>nchar(3 char)|0s</StoredType>
     </column>
-    <column id="5600" parent="5584" name="low">
+    <column id="5607" parent="5584" name="low">
       <Position>4</Position>
       <StoredType>int|0s</StoredType>
     </column>
-    <column id="5601" parent="5584" name="high">
+    <column id="5608" parent="5584" name="high">
       <Position>5</Position>
       <StoredType>int|0s</StoredType>
     </column>
-    <column id="5602" parent="5584" name="status">
+    <column id="5609" parent="5584" name="status">
       <Position>6</Position>
       <StoredType>int|0s</StoredType>
     </column>

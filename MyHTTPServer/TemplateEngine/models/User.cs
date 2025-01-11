@@ -6,6 +6,7 @@
     /// </summary>
     public class User
     {
+        public string Name {get; set;}
         /// <summary>
         /// Свойство задает и получает логин поль-ля
         /// </summary>

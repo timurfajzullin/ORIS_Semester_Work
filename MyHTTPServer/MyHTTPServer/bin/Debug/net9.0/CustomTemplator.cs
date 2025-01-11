@@ -1,5 +1,6 @@
 ﻿using MyHttpServer.Core.Templaytor;
 using System.Text.RegularExpressions;
+using MyHttttpServer.Models;
 
 namespace MyHtttpServer.Core.Templator
 {
@@ -12,12 +13,13 @@ namespace MyHtttpServer.Core.Templator
 
         public string GetHtmlByTemplate<T>(string template, T obj)
         {
+            var replace = "";
             var properties = obj.GetType().GetProperties();
             foreach (var property in properties)
             {
-                template = template.Replace("{" + property.Name + "}", property.GetValue(obj).ToString());
+                replace = template.Replace("{" + property.PropertyType + "}", property.GetValue(obj)?.ToString());
             }
-            return template;
+            return replace;
         }
 
         public static string GetHtmlByTemplateWithURL(string url)
@@ -36,7 +38,7 @@ namespace MyHtttpServer.Core.Templator
                                     </div>
                                 </div>
                              </div>";
-            if (url == "https://mgf-static-ssl.ctc.ru/images/ctc-entity-project/20917/verticalcover/web/67473d184ff05-490x696.jpeg")
+            if (url == "https://mgf-static-ssl.ctc.ru/images/ctc-entity-project/6413/verticalcover/web/600ff7e27ac21-490x695.jpeg")
             {
                 template = $@"<div class=""mocked-styled-394 p1tslz7y"">
                                 <div class=""phws30f"" style=""opacity: 1;"">
@@ -73,6 +75,7 @@ namespace MyHtttpServer.Core.Templator
 
             string loggedInHtml = @"<div data-cy=""avatar"" id=""avatar"" class=""mocked-styled-757 a17c5pon"">
             <div data-cy=""avatar"" class=""mocked-styled-95 akji77o"">
+                <a href=""admin"">
                 <svg width=""40"" height=""40"" viewBox=""0 0 40 40"" xmlns=""http://www.w3.org/2000/svg"">
                     <g fill=""none"" fill-rule=""evenodd"">
                         <circle fill=""#1F1F1F"" cx=""20"" cy=""20"" r=""20""></circle>
@@ -83,6 +86,7 @@ namespace MyHtttpServer.Core.Templator
                         </g>
                     </g>
                 </svg>
+                </a>
             </div>
         </div>";
             
@@ -115,6 +119,7 @@ namespace MyHtttpServer.Core.Templator
             // Новый HTML с аватаром
             string loggedInHtml = @"<div data-cy=""avatar"" id=""avatar"" class=""mocked-styled-757 a17c5pon"">
             <div data-cy=""avatar"" class=""mocked-styled-95 akji77o"">
+                <a href=""admin"">
                 <svg width=""40"" height=""40"" viewBox=""0 0 40 40"" xmlns=""http://www.w3.org/2000/svg"">
                     <g fill=""none"" fill-rule=""evenodd"">
                         <circle fill=""#1F1F1F"" cx=""20"" cy=""20"" r=""20""></circle>
@@ -125,6 +130,7 @@ namespace MyHtttpServer.Core.Templator
                         </g>
                     </g>
                 </svg>
+                </a>
             </div>
         </div>";
 
@@ -140,7 +146,19 @@ namespace MyHtttpServer.Core.Templator
                                 </div>
 <button data-disabled=""false"" color=""transparent"" data-cy=""send-comment-button"" class=""mocked-styled-3 b1oy04za tlavnz7 b1oy04za""><span class=""mocked-styled-0 i1tw7fe7"" style=""--i1tw7fe7-0: 4.063vw; --i1tw7fe7-1: 13px; --i1tw7fe7-2: 0.677vw;""></span>Отправить </button>";
                 
-            return template.Replace(loginButtonHtml, loggedInHtml).Replace(logButtonComents, update);
+            return template.Replace(logButtonComents, update).Replace(loginButtonHtml, loggedInHtml);
         }
+        
+        public string GetHtmlByTemplateFilmPageData(Movie movies, string template) 
+        {
+            template = template.Replace("{{posterUrl}}", movies.PosterURl);
+            template = template.Replace("{{Title}}", movies.Name);
+            template = template.Replace("{{Description}}", movies.Description);
+            template = template.Replace("{{Genre}}", movies.Genre);
+            template = template.Replace("{{Starring}}", movies.Starring);
+            template = template.Replace("{{Production}}", movies.Production);
+            return template;
+        }
+
     }
 }

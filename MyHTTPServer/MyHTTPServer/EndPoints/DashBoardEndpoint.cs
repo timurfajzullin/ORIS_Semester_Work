@@ -47,59 +47,52 @@ namespace MyHTTPServer.EndPoints
         public IHttpResponceResult CheckAuthorization()
         {
             bool isAuthorized = IsAuthorized(Context);
-            return Json(new { isAuthorized });
+            return Json(isAuthorized);
         }
         
         [Get("dashboard/GetUrls")]
-        public IHttpResponceResult GetUrls()
+        public IHttpResponceResult GetUrls(string? country, string? genre, string? year, string? privacy)
         {
             string connectionString = @"Data Source=localhost; User ID=sa;Password=P@ssw0rd; TrustServerCertificate=true;";
             var connection = new SqlConnection(connectionString);
             var dBcontext = new ORMContext<Movie>(connection);
-            var query = "SELECT PosterURL FROM Movies"; // SQL-запрос для получения URL из таблицы Movies
+
+            // Начинаем с базового запроса
+            var query = "SELECT PosterURL FROM DBWithAllMovies";
+
+            List<string> conditions = new List<string>();
+            
+            if (!string.IsNullOrEmpty(country))
+            {
+                conditions.Add($"Country = N'{country}'");
+            }
+            
+            if (!string.IsNullOrEmpty(genre))
+            {
+                conditions.Add($"Genre = N'{genre}'");
+            }
+            
+            if (!string.IsNullOrEmpty(year))
+            {
+                conditions.Add($"Year = {int.Parse(year)}");
+            }
+            
+            if (!string.IsNullOrEmpty(privacy))
+            {
+                conditions.Add($"Privacy = N'{privacy}'");
+            }
+            
+            // Если есть условия, добавляем их к запросу
+            if (conditions.Count > 0)
+            {
+                query += " WHERE " + string.Join(" AND ", conditions);
+                query += ';';
+            }
+            
             var urls = PutURLToTemplate(dBcontext.TakeURLByData(query));
+    
             return Json(urls);
         }
-        
-        [Get("dashboard/GetMoviesWithCountryFilter")]
-        public IHttpResponceResult GetMoviesWithCountryFilter(string country)
-        {
-            string connectionString = @"Data Source=localhost; User ID=sa;Password=P@ssw0rd; TrustServerCertificate=true;";
-            var connection = new SqlConnection(connectionString);
-            var dBcontext = new ORMContext<Movie>(connection);
-
-            if (country == "Россия")
-            {
-                var queryR = "SELECT PosterURL FROM MoviesWithCountryFilter WHERE Country = 'russia';";
-                var urlsR = PutURLToTemplate(dBcontext.TakeURLByData(queryR));
-                return Json(urlsR);
-            }
-            
-            var queryU = "SELECT PosterURL FROM MoviesWithCountryFilter WHERE Country = 'usa';";
-            var urlsU = PutURLToTemplate(dBcontext.TakeURLByData(queryU));
-            return Json(urlsU);
-        }
-        
-        [Get("dashboard/GetMoviesWithPrivacyFilter")]
-        public IHttpResponceResult GetMoviesWithPrivacyFilter(string privacy)
-        {
-            string connectionString = @"Data Source=localhost; User ID=sa;Password=P@ssw0rd; TrustServerCertificate=true;";
-            var connection = new SqlConnection(connectionString);
-            var dBcontext = new ORMContext<Movie>(connection);
-
-            if (privacy == "free")
-            {
-                var queryR = "SELECT PosterURL FROM PrivacyMovies WHERE Privacy = 'free';";
-                var urlsR = PutURLToTemplate(dBcontext.TakeURLByData(queryR));
-                return Json(urlsR);
-                
-            }
-            
-            var queryU =  "SELECT PosterURL FROM PrivacyMovies WHERE Privacy = 'privacy';";
-            var urlsU = PutURLToTemplate(dBcontext.TakeURLByData(queryU));
-            return Json(urlsU);
-        }
-        
         
 
         private List<string> PutURLToTemplate(List<string> urls)

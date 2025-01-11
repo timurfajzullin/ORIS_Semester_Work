@@ -3,6 +3,8 @@ using System.Data.Common;
 using System.Data.SqlClient;
 using System.Linq.Expressions;
 using System.Reflection;
+using Microsoft.Data.SqlClient;
+using MyHttttpServer.Models;
 
 namespace MyORMLibrary;
 public class ORMContext<T> where T : class, new()
@@ -14,13 +16,41 @@ public class ORMContext<T> where T : class, new()
         _dbconnection = dbconnection;
     }
 
-    public T Create<T>(T entity, string tableName) where T : class
+    public T Create(T entity)
     {
-        // Пример реализации метода Create
-        // Параметризованный SQL-запрос для вставки данных
-        throw new NotImplementedException();
-    }
+        var properties = typeof(T).GetProperties();
 
+        // Генерация списка столбцов и параметров
+        var columns = string.Join(", ", properties.Select(p => p.Name));
+        var values = string.Join(", ", properties.Select(p => $"@{p.Name}"));
+
+        // Формирование SQL-запроса
+        var query = $"INSERT INTO {typeof(T).Name}s ({columns}) VALUES ({values});";
+
+        using (var connection = _dbconnection)
+        {
+            connection.Open();
+            using (var command = connection.CreateCommand())
+            {
+                command.CommandText = query;
+
+                // Добавление параметров
+                foreach (var property in properties)
+                {
+                    var parameter = command.CreateParameter();
+                    parameter.ParameterName = $"@{property.Name}";
+                    parameter.Value = property.GetValue(entity) ?? DBNull.Value;
+                    command.Parameters.Add(parameter);
+                }
+
+                command.ExecuteNonQuery();
+            }
+            connection.Close();
+        }
+
+        return entity;
+    }
+    
     public T ReadById(int id)
     {
         using (var connection = _dbconnection)
@@ -70,29 +100,33 @@ public class ORMContext<T> where T : class, new()
 
     public T CheckUserByData(string email)
     {
-        var tableName = typeof(T).Name;
+        var tableName = typeof(T).Name + "s"; // Обычно имя таблицы во множественном числе
         using (var connection = _dbconnection)
         {
             connection.Open();
-            string queryRequest = $"SELECT * FROM {tableName} WHERE email = @email ";
+            string queryRequest = $"SELECT * FROM {tableName} WHERE email = @email;";
             using (var command = connection.CreateCommand())
             {
                 command.CommandText = queryRequest;
-                var parametr = command.CreateParameter();
-                parametr.ParameterName= "@email";
-                parametr.Value = email;
+
+                // Добавление параметра для email
+                var parameter = command.CreateParameter();
+                parameter.ParameterName = "@email";
+                parameter.Value = email;
+                command.Parameters.Add(parameter);
 
                 using (var reader = command.ExecuteReader())
                 {
                     if (reader.Read())
                     {
-                        return Map(reader);
+                        return Map(reader); // Если запись найдена, возвращаем объект
                     }
                 }
             }
         }
-        return null;
+        return null; // Если пользователь не найден, возвращаем null
     }
+
 
 
     public T ReadByAll<T>() where T : class, new()
@@ -101,9 +135,10 @@ public class ORMContext<T> where T : class, new()
         using (var connection = _dbconnection)
         {
             connection.Open();
-            string queryRequest = $"SELECT * FROM {tableName}";
+            string queryRequest = "SELECT * FROM MoviePageInformation";
             using (var command = connection.CreateCommand())
             {
+                command.CommandText = queryRequest;
                 using (var reader = command.ExecuteReader())
                 {
                     if (reader.Read())
@@ -186,6 +221,111 @@ public class ORMContext<T> where T : class, new()
         }
         return results; // Возвращаем список строк
     }
+    
+    public List<Movie> GetMovies(string query)
+    {
+        List<Movie> movies = new List<Movie>();
+        using (var command = _dbconnection.CreateCommand())
+        {
+            command.CommandText = query;
+            _dbconnection.Open();
+            using (var reader = command.ExecuteReader())
+            {
+               
+                while (reader.Read())
+                {
+                    movies.Add(new Movie
+                    {
+                        PosterURl = reader["PosterURL"].ToString(),
+                        Name = reader["Name"].ToString(),
+                        Genre = reader["Genre"].ToString(),
+                        Country = reader["Country"].ToString(),
+                        Privacy = reader["Privacy"].ToString(),
+                        Year = reader["Year"].ToString()
+                    });
+                }
+            }
+            _dbconnection.Close();
+        }
+        
+
+        return movies;
+    }
+
+    public Movie AddMovie(string query)
+    {
+        using (var command = _dbconnection.CreateCommand())
+        {
+            // Параметры для предотвращения SQL-инъекций
+            command.CommandText = query;
+            _dbconnection.Open();
+            command.ExecuteNonQuery();
+            var values = ParseInsertQuery(query);
+            _dbconnection.Close();
+            return new Movie
+            {
+                Name = values["name"],
+                PosterURl = values["posterurl"],
+                Country = values["country"],
+                Year = values["year"],
+                Genre = values["genre"],
+                Privacy = values["privacy"]
+            };
+        }
+    }
+
+    public List<Movie> DeleteMovie(string query)
+    {
+        List<Movie> deletedMovies = new List<Movie>();
+    
+        // Формируем SELECT запрос, чтобы получить удаляемые записи
+        string selectQuery = query.Replace("DELETE", "SELECT *");
+
+        using (var command = _dbconnection.CreateCommand())
+        {
+            // Выполняем SELECT для получения удаляемых данных
+            command.CommandText = selectQuery;
+            _dbconnection.Open();
+
+            using (var reader = command.ExecuteReader())
+            {
+                while (reader.Read())
+                {
+                    // Предполагается, что у Movie есть свойства Title, Year и т. д.
+                    deletedMovies.Add(new Movie
+                    {
+                        Name = reader["Name"].ToString(),
+                        PosterURl = reader["PosterURL"].ToString(),
+                        Country = reader["Country"].ToString(),
+                        Year = reader["Year"].ToString(),
+                        Genre = reader["Genre"].ToString(),
+                        Privacy = reader["Privacy"].ToString(),
+                        // Заполняем остальные свойства объекта Movie
+                    });
+                }
+            }
+
+            // Выполняем DELETE запрос
+            command.CommandText = query;
+            command.ExecuteNonQuery();
+
+            _dbconnection.Close();
+        }
+
+        return deletedMovies;
+    }
+    
+    public void AddComment(string query)
+    {
+        using (var command = _dbconnection.CreateCommand())
+        {
+            // Параметры для предотвращения SQL-инъекций
+            command.CommandText = query;
+            _dbconnection.Open();
+            command.ExecuteNonQuery();
+            _dbconnection.Close();
+        }
+    }
 
 
     public void Update(int id, T entity)
@@ -218,6 +358,29 @@ public class ORMContext<T> where T : class, new()
             command.ExecuteNonQuery();
             _dbconnection.Close();
         }
+    }
+
+    private Dictionary<string, string> ParseInsertQuery(string query)
+    {
+        var values = new Dictionary<string, string>();
+
+        // Извлекаем часть после `VALUES`
+        var startIndex = query.IndexOf("VALUES", StringComparison.OrdinalIgnoreCase);
+        if (startIndex == -1)
+            throw new ArgumentException("Некорректный SQL-запрос: не найдена часть VALUES.");
+
+        var valuesPart = query.Substring(startIndex + "VALUES".Length).Trim().Trim('(', ')');
+        var parts = valuesPart.Split(',');
+
+        // Соответствие с порядком столбцов в таблице
+        var keys = new[] { "name", "posterurl", "country", "year", "genre", "privacy" };
+        for (int i = 0; i < keys.Length && i < parts.Length; i++)
+        {
+            // Убираем лишние пробелы и кавычки
+            values[keys[i]] = parts[i].Trim().Trim('\'', 'N');
+        }
+
+        return values;
     }
 
 
@@ -272,6 +435,9 @@ public class ORMContext<T> where T : class, new()
         }
         return entity;
     }
+    
+    
+
 
     public T FirstOrDefault(Expression<Func<T, bool>> predicate)
     {
