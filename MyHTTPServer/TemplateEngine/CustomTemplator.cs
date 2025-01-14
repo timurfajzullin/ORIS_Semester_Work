@@ -1,5 +1,6 @@
 ﻿using MyHttpServer.Core.Templaytor;
 using System.Text.RegularExpressions;
+using Microsoft.Data.SqlClient;
 using MyHttttpServer.Models;
 
 namespace MyHtttpServer.Core.Templator
@@ -22,14 +23,13 @@ namespace MyHtttpServer.Core.Templator
             return replace;
         }
 
-        public static string GetHtmlByTemplateWithURL(string url)
+        public static string GetHtmlByTemplateWithURL(string url, string name)
         {
-            
             var template = $@"<div class=""mocked-styled-394 p1tslz7y"">
                                 <div class=""phws30f"" style=""opacity: 1;"">
                                     <div data-cy=""tile"" data-has-progress=""false"" class=""mocked-styled-33 t1lfo8oz"" style=""--t1lfo8oz-0: none; --t1lfo8oz-1: 0;"">
                                         <div class=""mocked-styled-27 irx2gae"">
-                                            <a data-cy=""image-link"" href=""#"">
+                                            <a data-cy=""image-link"" href=""movie?name={name}"">
                                                 <div class=""iebw1u"" data-cy=""image"" style=""background-image: url({url});"">
                                                 </div>
                                             </a>
@@ -38,24 +38,33 @@ namespace MyHtttpServer.Core.Templator
                                     </div>
                                 </div>
                              </div>";
-            if (url == "https://mgf-static-ssl.ctc.ru/images/ctc-entity-project/6413/verticalcover/web/600ff7e27ac21-490x695.jpeg")
-            {
-                template = $@"<div class=""mocked-styled-394 p1tslz7y"">
-                                <div class=""phws30f"" style=""opacity: 1;"">
-                                    <div data-cy=""tile"" data-has-progress=""false"" class=""mocked-styled-33 t1lfo8oz"" style=""--t1lfo8oz-0: none; --t1lfo8oz-1: 0;"">
-                                        <div class=""mocked-styled-27 irx2gae"">
-                                            <a data-cy=""image-link"" href=""movie"">
-                                                <div class=""iebw1u"" data-cy=""image"" style=""background-image: url({url});"">
-                                                </div>
-                                            </a>
-                                        </div>
-                                        <div class=""mocked-styled-28 in56or7""></div>
-                                    </div>
-                                </div>
-                             </div>";
-            }
-            
             return template;
+        }
+
+        public string GetHtmlWithMoviePlayer(string html, string name)
+        {
+            var movie = @"<swiper-container init=""false"" class=""swiper-initialized swiper-horizontal swiper-backface-hidden"">
+                            <swiper-slide role=""group"" aria-label=""1 / 1"" class=""swiper-slide-active"">
+                                <div data-cy=""tab"" class=""mocked-styled-644 t2g7dy0"">
+                                    <button data-disabled=""false"" color=""default"" class=""mocked-styled-1 b1oy04za""><span class=""mocked-styled-0 i1tw7fe7"" style=""--i1tw7fe7-0: 4.063vw; --i1tw7fe7-1: 13px; --i1tw7fe7-2: 0.677vw;""></span>Фильмы</button>
+                                </div>
+
+                                <div id=""video-container"" style=""width: 100%; justify-content: center"">
+                                    <iframe id=""video-frame"" src=""https://vk.com/video_ext.php?oid=-190452322&id=456239102&hd=2""
+                                            allow=""encrypted-media; fullscreen; picture-in-picture; screen-wake-lock;""
+                                            frameborder=""0""
+                                            allowfullscreen>
+                                    </iframe>
+                                </div></swiper-slide>
+                        </swiper-container>";
+            var past = @"<swiper-container init=""false"" class=""swiper-initialized swiper-horizontal swiper-backface-hidden"">
+                        </swiper-container>";
+            if (name == "Лед")
+            {
+                return html.Replace(past, movie);
+            }
+
+            return html;
         }
 
         public string ReplaceSpecificHtml(string template, string placeholder, string replacementHtml)
@@ -151,10 +160,9 @@ namespace MyHtttpServer.Core.Templator
         
         public string GetHtmlByTemplateFilmPageData(Movie movies, string template) 
         {
-            template = template.Replace("{{posterUrl}}", movies.PosterURl);
+            template = template.Replace("{{PosterUrl}}", movies.PosterURl);
             template = template.Replace("{{Title}}", movies.Name);
             template = template.Replace("{{Description}}", movies.Description);
-            template = template.Replace("{{Genre}}", movies.Genre);
             template = template.Replace("{{Starring}}", movies.Starring);
             template = template.Replace("{{Production}}", movies.Production);
             return template;

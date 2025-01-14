@@ -453,6 +453,9 @@
         }
       },
       "TemplateEngine/1.0.0": {
+        "dependencies": {
+          "Microsoft.Data.SqlClient": "6.0.0-preview3.24332.3"
+        },
         "runtime": {
           "TemplateEngine.dll": {
             "assemblyVersion": "1.0.0",

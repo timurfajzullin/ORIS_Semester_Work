@@ -125,6 +125,16 @@ public class AdminEndPoint : BaseEndPoint
         return Json(result);
     }
 
+    [Get("admin/AddMoviePageInformation")]
+    public void GetMoviePageInformation(string name, string posterurl, string production, string description, string starring)
+    {
+        string connectionString = @"Data Source=localhost; User ID=sa;Password=P@ssw0rd; TrustServerCertificate=true;";
+        var connection = new SqlConnection(connectionString);
+        var dBcontext = new ORMContext<Movie>(connection);
+        var query = $"INSERT INTO MoviePageInformation (Name, PosterURL, Production, Description, Starring) VALUES (N'{name}', '{posterurl}', N'{production}', N'{description}', N'{starring}');";
+        dBcontext.AddMovieInfo(query);
+    }
+
     [Get("admin/AddComment")]
     public IHttpResponceResult AddComment(string username, string textarea, string datetime)
     {

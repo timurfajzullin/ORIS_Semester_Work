@@ -56,6 +56,8 @@ namespace MyHTTPServer.EndPoints
             string connectionString = @"Data Source=localhost; User ID=sa;Password=P@ssw0rd; TrustServerCertificate=true;";
             var connection = new SqlConnection(connectionString);
             var dBcontext = new ORMContext<Movie>(connection);
+            var queryNames = $"SELECT Name FROM DBWithAllMovies";
+            var namesList = dBcontext.TakeURLByData(queryNames);
 
             // Начинаем с базового запроса
             var query = "SELECT PosterURL FROM DBWithAllMovies";
@@ -89,19 +91,20 @@ namespace MyHTTPServer.EndPoints
                 query += ';';
             }
             
-            var urls = PutURLToTemplate(dBcontext.TakeURLByData(query));
+            var urls = PutURLToTemplate(dBcontext.TakeURLByData(query), namesList);
     
             return Json(urls);
         }
         
 
-        private List<string> PutURLToTemplate(List<string> urls)
+        private List<string> PutURLToTemplate(List<string> urls, List<string> names)
         {
             var result = new List<string>();
-            foreach (var url in urls)
+
+            for (int i = 0; i < urls.Count; i++)
             {
-                
-                result.Add(CustomTemplator.GetHtmlByTemplateWithURL(url));
+                var html = CustomTemplator.GetHtmlByTemplateWithURL(urls[i], names[i]);
+                result.Add(html);
             }
 
             return result;

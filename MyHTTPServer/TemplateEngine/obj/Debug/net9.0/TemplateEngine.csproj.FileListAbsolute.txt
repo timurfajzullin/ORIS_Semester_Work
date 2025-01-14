@@ -12,3 +12,4 @@ C:\Users\fajzu\OneDrive\Документы\GitHub\ORIS_Semester_Work\MyHTTPServe
 C:\Users\fajzu\OneDrive\Документы\GitHub\ORIS_Semester_Work\MyHTTPServer\TemplateEngine\obj\Debug\net9.0\ref\TemplateEngine.dll
 C:\Users\fajzu\OneDrive\Документы\GitHub\ORIS_Semester_Work\MyHTTPServer\TemplateEngine\bin\Debug\net9.0\CustomTemplator.cs
 C:\Users\fajzu\OneDrive\Документы\GitHub\ORIS_Semester_Work\MyHTTPServer\TemplateEngine\bin\Debug\net9.0\ICustomTemplator.cs
+C:\Users\fajzu\OneDrive\Документы\GitHub\ORIS_Semester_Work\MyHTTPServer\TemplateEngine\obj\Debug\net9.0\TemplateEngine.csproj.AssemblyReference.cache

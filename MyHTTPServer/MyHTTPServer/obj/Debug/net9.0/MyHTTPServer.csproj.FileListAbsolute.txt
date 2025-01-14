@@ -88,3 +88,5 @@ C:\Users\fajzu\OneDrive\Документы\GitHub\ORIS_Semester_Work\MyHTTPServe
 C:\Users\fajzu\OneDrive\Документы\GitHub\ORIS_Semester_Work\MyHTTPServer\MyHTTPServer\bin\Debug\net9.0\Templates\Pages\Registration\registrationPage.html
 C:\Users\fajzu\OneDrive\Документы\GitHub\ORIS_Semester_Work\MyHTTPServer\MyHTTPServer\bin\Debug\net9.0\public\assets\adminPanel.css
 C:\Users\fajzu\OneDrive\Документы\GitHub\ORIS_Semester_Work\MyHTTPServer\MyHTTPServer\bin\Debug\net9.0\Templates\Pages\AdminPanel\AdminPanel.html
+C:\Users\fajzu\OneDrive\Документы\GitHub\ORIS_Semester_Work\MyHTTPServer\MyHTTPServer\bin\Debug\net9.0\public\assets\bobr.html
+C:\Users\fajzu\OneDrive\Документы\GitHub\ORIS_Semester_Work\MyHTTPServer\MyHTTPServer\bin\Debug\net9.0\public\assets\image\СИДИМ С БОБРОМ ЗА СТОЛОМ.mp4

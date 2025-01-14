@@ -58,7 +58,7 @@ namespace HttpServerLibrary
 
             Console.WriteLine("Запрашиваемая ссылка: " +
                               context.Request.Url);
-
+            
             // if (context.Request.HttpMethod == "POST") // обнаружение POST запроса
             // {
             //     Console.WriteLine($"ЧИПИЧАПА: {context.Request.Url}");

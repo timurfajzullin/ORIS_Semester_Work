@@ -39,15 +39,13 @@ public class StaticFilesHandler : Handler
                     string.IsNullOrEmpty(relativePath)
                         ? "index.html"
                         : relativePath); // Если нет обращения к конкретному файлу, обращаться к index.html
-                // TODO try catch 
-                // Если файла не существует вернуть 404
+                
                 // if (!File.Exists(filePath))
                 // {
-                //     // TODO: Implement more robust 404 handling with custom error page and proper status code.
-                //     filePath = Path.Combine(_staticDirectoryPath, "err404.html");
+                //     filePath = Path.Combine(_staticDirectoryPath, "404.html");
                 //     context.Response.StatusCode = (int)HttpStatusCode.NotFound;
                 // }
-                //
+                
                 byte[] responseFile = File.ReadAllBytes(filePath); // Побитовое чтение html файла
                 // Set Content Type based on file extension
                 context.Response.ContentType = GetContentType(Path.GetExtension(filePath));

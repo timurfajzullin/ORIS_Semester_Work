@@ -38,7 +38,7 @@
             </div>
             <div class="button-group">
                 <button id="showButton">Показать</button>
-                <button id="addButton">Добавить</button>
+                <button id="addButton">Добавить информацию</button>
                 <button id="deleteButton">Удалить</button>
             </div>
         </div>
@@ -48,8 +48,42 @@
 </body>
 
 <script>
-    const catalog = document.getElementById('catalog');
 
+    const catalog = document.getElementById('catalog');
+    const addButton = document.getElementById("addButton");
+    const nameInput = document.querySelector("#name input");
+    const countryInput = document.querySelector("#country input");
+    let panelVisible = false; // Флаг состояния панели
+
+    addButton.addEventListener("click", () => {
+        if (panelVisible) {
+            // Если панель видима, скрываем её
+            catalog.innerHTML = '';
+            panelVisible = false;
+        } else {
+            // Если панель скрыта, показываем её
+            const panel = document.createElement("div");
+            panel.className = "input-panel";
+            panel.innerHTML = `
+                    <p>Name</p>
+                    <input id="movieName" type="text" value="${nameInput.value}" placeholder="Введите данные" />
+                    <p>BackgroundUrl</p>
+                    <input id="movieBImage" type="text" placeholder="Введите данные" />
+                    <p>Production</p>
+                    <input id="movieProduction" type="text" value="${countryInput.value}" placeholder="Введите данные" />
+                    <p>Description</p>
+                    <input id="movieDesc" type="text" placeholder="Введите данные" />
+                    <p>Starring</p>
+                    <input  id="movieStarring" type="text" placeholder="Введите данные" />
+                    <button id="addMovie">Добавить фильм</button>
+                `;
+            catalog.appendChild(panel);
+            panelVisible = true;
+        }
+        document.getElementById("addMovie").addEventListener("click", ()=>{
+            AddCard();
+        });
+    });
     function GetValues() {
         const name = document.querySelector('#name input').value;
         const posterurl = document.querySelector('#url input').value;
@@ -71,9 +105,7 @@
 
 
     document.getElementById('showButton').addEventListener('click',ShowCards);
-    document.getElementById('addButton').addEventListener('click', AddCard);
     document.getElementById('deleteButton').addEventListener('click', DeleteCards)
-    
     
     function GetAjaxRequets(requestUrl)
     {
@@ -117,12 +149,12 @@
         const privacyInput = document.querySelector('#privacy input');
         const genreInput = document.querySelector('#genre input');
         if (
-            titleInput.value.trim() === '' &&
-            posterurlInput.value.trim() === '' &&
-            countryInput.value.trim() === '' &&
-            yearInput.value.trim() === '' &&
-            privacyInput.value.trim() === '' &&
-            genreInput.value.trim() === ''
+            titleInput.value === '' &&
+            posterurlInput.value === '' &&
+            countryInput.value === '' &&
+            yearInput.value === '' &&
+            privacyInput.value === '' &&
+            genreInput.value === ''
         ) {
             alert('Вы действительно хотите полностью очистить базу данных????????????????????????????????????????????????????????????????????????\n' +
             '?????????????????????????????????????????????????????????????????????????\n???????????????????????????????????????????????????????');
@@ -135,9 +167,45 @@
     {
         GetAjaxRequets(`admin/GetInformation?${GetValues()}`);
     }
+    function GetMovieValues(){
+        const name = document.getElementById("movieName").value;
+        const posterurl = document.getElementById("movieBImage").value;
+        const production = document.getElementById("movieProduction").value;
+        const description = document.getElementById("movieDesc").value;
+        const starring = document.getElementById("movieStarring").value;
 
+        // Создаем объект URLSearchParams
+        const params = new URLSearchParams();
+
+        if (name !== '') params.append('name', name);
+        if (posterurl !== '') params.append('posterurl', posterurl);
+        if (production !== '') params.append('production', production);
+        if (description !== '') params.append('description', description);
+        if (starring !== '') params.append('starring', starring);
+        return params.toString()
+    }
+    
+    function AddMovie() {
+        const name = document.getElementById("movieName").value;
+        const posterurl = document.getElementById("movieBImage").value;
+        const production = document.getElementById("movieProduction").value;
+        const description = document.getElementById("movieDesc").value;
+        const starring = document.getElementById("movieStarring").value;
+        if (
+            name.value === '' ||
+            posterurl.value === '' ||
+            production.value === '' ||
+            description.value === '' ||
+            starring.value === ''
+        ) {
+            alert('Заполните все поля перед добавлением фильма.');
+            return;
+        }
+        
+        fetch(`admin/AddMoviePageInformation?${GetMovieValues()}`)
+    }
+    
     function AddCard() {
-        // Получаем ссылки на все элементы ввода
         const titleInput = document.querySelector('#name input');
         const posterurlInput = document.querySelector('#url input');
         const countryInput = document.querySelector('#country input');
@@ -155,7 +223,8 @@
             alert('Заполните все поля перед добавлением фильма.');
             return;
         }
-        
+
+        AddMovie()
         fetch(`admin/AddInformation?${GetValues()}`)
             .then(response => response.json())
             .then(movie => {

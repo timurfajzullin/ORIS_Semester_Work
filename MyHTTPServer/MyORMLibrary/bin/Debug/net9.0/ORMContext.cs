@@ -128,14 +128,29 @@ public class ORMContext<T> where T : class, new()
     }
 
 
+    public string GetNameByUrl(string url)
+    {
+        using (var connection = _dbconnection)
+        {
+            connection.Open();
+            string queryRequest = $"SELECT Name FROM MoviePageInformation where url = '{url}';";
+            using (var command = connection.CreateCommand())
+            {
+                using (var reader = command.ExecuteReader())
+                {
+                    return reader["Name"].ToString();
+                }
+            }
+        }
+    }
 
-    public T ReadByAll<T>() where T : class, new()
+    public T ReadByAll<T>(string name) where T : class, new()
     {
         var tableName = typeof(T).Name;
         using (var connection = _dbconnection)
         {
             connection.Open();
-            string queryRequest = "SELECT * FROM MoviePageInformation";
+            string queryRequest = $"SELECT * FROM MoviePageInformation WHERE Name = N'{name}'";
             using (var command = connection.CreateCommand())
             {
                 command.CommandText = queryRequest;
@@ -252,6 +267,18 @@ public class ORMContext<T> where T : class, new()
         return movies;
     }
 
+
+    public void AddMovieInfo(string query)
+    {
+        using (var command = _dbconnection.CreateCommand())
+        {
+            // Параметры для предотвращения SQL-инъекций
+            command.CommandText = query;
+            _dbconnection.Open();
+            command.ExecuteNonQuery();
+            _dbconnection.Close();
+        }
+    }
     public Movie AddMovie(string query)
     {
         using (var command = _dbconnection.CreateCommand())

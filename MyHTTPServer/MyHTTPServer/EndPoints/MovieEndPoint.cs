@@ -12,22 +12,20 @@ namespace MyHTTPServer.EndPoints;
 public class MovieEndPoint : BaseEndPoint
 {
     [Get("movie")]
-    public IHttpResponceResult GetMovie()
+    public IHttpResponceResult GetMovie(string name)
     {
-        
+        Console.WriteLine($"Getting movie for {name}");
         var templator = new CustomTemplator();
         var moviePage = File.ReadAllText(@"Templates/Pages/MoviePage/MoviePage.html");
         string connectionString = @"Data Source=localhost; User ID=sa;Password=P@ssw0rd; TrustServerCertificate=true;";
         var connection = new SqlConnection(connectionString);
         var dBcontext = new ORMContext<Movie>(connection);
-        var result = dBcontext.ReadByAll<Movie>();
-        
-        
+        var result = dBcontext.ReadByAll<Movie>(name);
         if (IsAuthorized(Context))
         {
-            return Html(templator.GetMovieHtml(templator.GetHtmlByTemplateFilmPageData(result, moviePage)));
+            return Html(templator.GetHtmlWithMoviePlayer(templator.GetMovieHtml(templator.GetHtmlByTemplateFilmPageData(result, moviePage)), name));
         }
-        return Html(templator.GetHtmlByTemplateFilmPageData(result, moviePage));
+        return Html(templator.GetHtmlWithMoviePlayer(templator.GetHtmlByTemplateFilmPageData(result, moviePage), name));
     }
     
     public bool IsAuthorized(HttpRequestContext context)

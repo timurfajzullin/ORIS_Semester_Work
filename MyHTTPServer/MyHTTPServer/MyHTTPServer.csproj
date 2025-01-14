@@ -2723,6 +2723,12 @@
       <None Update="public\assets\adminPanel.css">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </None>
+      <None Update="public\assets\bobr.html">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="public\assets\image\СИДИМ С БОБРОМ ЗА СТОЛОМ.mp4">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
     </ItemGroup>
 
     <ItemGroup>
